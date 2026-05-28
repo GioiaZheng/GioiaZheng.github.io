@@ -372,6 +372,95 @@ main.is-wide { max-width: var(--w-wide); }
   color: var(--accent);
 }
 
+/* ---------- landing sections (home) ---------- */
+
+.section {
+  padding: var(--s-7) 0;
+  border-top: 1px solid var(--line);
+}
+
+.section:first-of-type {
+  border-top: 0;
+  padding-top: var(--s-4);
+}
+
+.section + .section {
+  padding-top: var(--s-7);
+}
+
+.kicker {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 600;
+  margin-bottom: var(--s-4);
+}
+
+.kicker a {
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: 0.06em;
+  font-weight: 500;
+}
+
+.kicker a:hover {
+  color: var(--accent);
+}
+
+.section-caption {
+  margin-top: var(--s-4);
+  font-size: 0.88rem;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-3);
+  flex-wrap: wrap;
+}
+
+.section-caption a {
+  color: var(--muted-strong);
+  text-decoration: none;
+}
+
+.section-caption a:hover {
+  color: var(--accent);
+}
+
+/* metric strip — flat hairline-divided row of 4 metrics, used on the home page
+   directly under the featured project card */
+.metric-strip {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  margin-top: var(--s-3);
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  overflow: hidden;
+}
+
+@media (min-width: 720px) {
+  .metric-strip {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.metric-strip .metric {
+  border: 0;
+  border-radius: 0;
+  background: var(--bg);
+  padding: var(--s-4) var(--s-5);
+}
+
+.metric-strip .metric-value {
+  font-size: 1.35rem;
+}
+
 /* ---------- cards ---------- */
 
 .card {

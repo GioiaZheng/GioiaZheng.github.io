@@ -1,15 +1,16 @@
 ---
 import { getCollection } from "astro:content";
 import Base from "../layouts/Base.astro";
-import ProjectCard from "../components/ProjectCard.astro";
 
 const featured = (await getCollection("projects"))
   .filter((p) => p.data.featured)
   .sort((a, b) => a.data.order - b.data.order);
+const anchor = featured[0];
 
 const writing = (await getCollection("writing"))
   .filter((w) => w.data.status === "published")
   .sort((a, b) => (b.data.date ?? "").localeCompare(a.data.date ?? ""));
+const recent = writing[0];
 ---
 
 <Base
@@ -17,22 +18,21 @@ const writing = (await getCollection("writing"))
   description="I build retrieve → rerank → generate pipelines and the evaluation machinery around them — on a single-laptop CPU budget."
   width="medium"
 >
+  <!-- HERO -->
   <section class="hero">
     <h1>Gioia Zheng</h1>
     <p class="hero-tagline">
       RAG Systems &middot; Reranking &middot; Grounding Evaluation &middot; CPU-Constrained ML
     </p>
     <p class="hero-positioning">
-      I build retrieve&nbsp;&rarr;&nbsp;rerank&nbsp;&rarr;&nbsp;generate pipelines and the
-      evaluation machinery that tells you whether they actually work. Current
-      focus: paired-bootstrap CIs, NLI grounding scores, and reproducibility
-      manifests on a single-laptop CPU budget.
+      I build retrieve&nbsp;&rarr;&nbsp;rerank&nbsp;&rarr;&nbsp;generate pipelines and
+      the evaluation machinery that tells you whether they actually work.
     </p>
 
     <div class="hero-actions">
       {
-        featured[0] && (
-          <a href={`/projects/${featured[0].slug}/`} class="btn btn-primary">
+        anchor && (
+          <a href={`/projects/${anchor.slug}/`} class="btn btn-primary">
             Featured project &rarr;
           </a>
         )
@@ -44,44 +44,94 @@ const writing = (await getCollection("writing"))
     </p>
   </section>
 
-  <h2>Featured</h2>
+  <!-- FEATURED PROJECT + METRIC STRIP -->
   {
-    featured.map((p) => (
-      <ProjectCard
-        href={`/projects/${p.slug}/`}
-        title={p.data.title}
-        summary={p.data.summary}
-        status={p.data.status}
-        tags={p.data.tags}
-        updated={p.data.last_updated}
-        featured
-      />
-    ))
-  }
-  <p class="muted" style="margin-top: 1rem;">
-    See <a href="/projects/">all projects</a> for older systems and coursework.
-  </p>
-
-  {
-    writing.length > 0 && (
-      <>
-        <h2>Recent writing</h2>
-        <div class="card-grid">
-          {writing.slice(0, 2).map((w) => (
-            <a href={`/writing/${w.slug}/`} class="card">
-              <div class="card-head">
-                <div class="card-title">{w.data.title}</div>
-              </div>
-              <p class="card-summary">{w.data.summary}</p>
-              {w.data.date && (
-                <div class="card-meta">
-                  <span>{w.data.date}</span>
-                </div>
-              )}
-            </a>
-          ))}
+    anchor && (
+      <section class="section">
+        <div class="kicker">
+          <span>Featured project</span>
+          <a href="/projects/">All projects &rarr;</a>
         </div>
-      </>
+
+        <a href={`/projects/${anchor.slug}/`} class="card card-featured">
+          <div class="card-head">
+            <div class="card-title">{anchor.data.title}</div>
+            <span class="badge" data-status={anchor.data.status}>
+              {anchor.data.status}
+            </span>
+          </div>
+          <p class="card-summary">{anchor.data.summary}</p>
+          <div class="card-meta">
+            <span>{anchor.data.tags.join(" · ")}</span>
+            {anchor.data.last_updated && (
+              <>
+                <span class="card-meta-sep">·</span>
+                <span>updated {anchor.data.last_updated}</span>
+              </>
+            )}
+          </div>
+        </a>
+
+        <div class="metric-strip" aria-label="Headline result, full MS MARCO dev/small">
+          <div class="metric">
+            <div class="metric-label">Token-F1</div>
+            <div class="metric-value">0.368</div>
+            <div class="metric-delta">Δ +0.171</div>
+            <div class="metric-ci">CI [+0.163, +0.178]</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">ROUGE-L</div>
+            <div class="metric-value">0.368</div>
+            <div class="metric-delta">Δ +0.174</div>
+            <div class="metric-ci">CI [+0.166, +0.181]</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">BLEU</div>
+            <div class="metric-value">+0.221</div>
+            <div class="metric-delta">Δ vs BM25</div>
+            <div class="metric-ci">CI strictly &gt; 0</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">Exact Match</div>
+            <div class="metric-value">+0.047</div>
+            <div class="metric-delta">Δ vs BM25</div>
+            <div class="metric-ci">CI strictly &gt; 0</div>
+          </div>
+        </div>
+
+        <p class="section-caption">
+          <span>
+            Headline numbers from <a href={`/projects/${anchor.slug}/`}>msmarco-genqa</a> &mdash;
+            6 980 paired queries, paired bootstrap (N&nbsp;=&nbsp;10 000).
+          </span>
+          <a href={`/projects/${anchor.slug}/#reproduce`}>How to reproduce &rarr;</a>
+        </p>
+      </section>
+    )
+  }
+
+  <!-- WRITING -->
+  {
+    recent && (
+      <section class="section">
+        <div class="kicker">
+          <span>Recent writing</span>
+          {writing.length > 1 && <a href="/writing/">All notes &rarr;</a>}
+        </div>
+
+        <a href={`/writing/${recent.slug}/`} class="card">
+          <div class="card-head">
+            <div class="card-title">{recent.data.title}</div>
+            {recent.data.date && (
+              <span class="badge" data-status="published">
+                {recent.data.date}
+              </span>
+            )}
+          </div>
+          <p class="card-summary">{recent.data.summary}</p>
+          <div class="card-action">Read note &rarr;</div>
+        </a>
+      </section>
     )
   }
 </Base>
