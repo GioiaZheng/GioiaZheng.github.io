@@ -7,7 +7,10 @@ const projects = defineCollection({
     summary: z.string(),
     order: z.number().default(99),
     featured: z.boolean().default(false),
-    status: z.enum(["active", "maintained", "paused", "archived"]).default("active"),
+    status: z
+      .enum(["active", "maintained", "experimental", "archived"])
+      .default("active"),
+    last_updated: z.string().optional(),
     repo: z.string().url().optional(),
     tags: z.array(z.string()).default([]),
   }),

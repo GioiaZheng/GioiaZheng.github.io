@@ -19,8 +19,9 @@ const { Content } = await entry.render();
   <h1>{entry.data.title}</h1>
   <p class="tagline">{entry.data.summary}</p>
   <p class="entry-meta">
-    {entry.data.status !== "active" && <span class="badge">{entry.data.status}</span>}
+    <span class="badge" data-status={entry.data.status}>{entry.data.status}</span>
     {entry.data.tags.join(" · ")}
+    {entry.data.last_updated && <span> &middot; updated {entry.data.last_updated}</span>}
   </p>
   <Content />
 </Base>

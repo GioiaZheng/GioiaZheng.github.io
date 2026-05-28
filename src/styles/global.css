@@ -3,7 +3,7 @@
   --color-fg: #1a1a1a;
   --color-muted: #5a5a5a;
   --color-line: #e4e4e4;
-  --color-accent: #b8312f;
+  --color-accent: #a64a48;
   --color-code-bg: #f4f4f4;
 
   --font-sans:
@@ -12,7 +12,7 @@
   --font-mono:
     ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Monaco, Consolas, monospace;
 
-  --max-width: 42rem;
+  --max-width: 45rem;
   --space-1: 0.5rem;
   --space-2: 1rem;
   --space-3: 1.5rem;
@@ -27,7 +27,7 @@
     --color-fg: #e8e8e8;
     --color-muted: #9a9a9a;
     --color-line: #2a2a2a;
-    --color-accent: #e57373;
+    --color-accent: #d09695;
     --color-code-bg: #1c1c1c;
   }
 }
@@ -187,10 +187,18 @@ small,
   padding: var(--space-3);
   display: flex;
   justify-content: space-between;
+  align-items: baseline;
   color: var(--color-muted);
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   flex-wrap: wrap;
   gap: var(--space-2);
+}
+
+.site-footer-inner code {
+  font-size: 0.78rem;
+  background: transparent;
+  padding: 0;
+  color: var(--color-muted);
 }
 
 /* Page-specific helpers */
@@ -236,14 +244,32 @@ small,
 
 .badge {
   display: inline-block;
-  font-size: 0.75rem;
-  letter-spacing: 0.04em;
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--color-muted);
   border: 1px solid var(--color-line);
-  padding: 0.05rem 0.4rem;
+  padding: 0.05rem 0.45rem;
   border-radius: 2px;
-  margin-right: 0.4rem;
+  margin-left: 0.5rem;
+  vertical-align: 0.1em;
+  font-weight: 500;
+}
+
+.badge[data-status="active"] {
+  color: var(--color-fg);
+  border-color: var(--color-fg);
+}
+
+.badge[data-status="experimental"] {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.badge[data-status="archived"],
+.badge[data-status="maintained"] {
+  color: var(--color-muted);
+  border-color: var(--color-line);
 }
 
 .project-section {

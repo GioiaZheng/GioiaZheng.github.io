@@ -2,25 +2,31 @@
 import { getCollection } from "astro:content";
 import Base from "../../layouts/Base.astro";
 
-const writing = (await getCollection("writing")).sort(
-  (a, b) => a.data.order - b.data.order,
-);
+const all = await getCollection("writing");
+const published = all
+  .filter((w) => w.data.status === "published")
+  .sort((a, b) => (b.data.date ?? "").localeCompare(a.data.date ?? ""));
+const drafts = all
+  .filter((w) => w.data.status === "draft")
+  .sort((a, b) => a.data.order - b.data.order);
 ---
 
-<Base title="Writing — Gioia Zheng" description="Technical notes on retrieval, generation, evaluation, and reproducibility.">
+<Base
+  title="Writing — Gioia Zheng"
+  description="Short technical notes on retrieval, generation, and evaluation."
+>
   <h1>Writing</h1>
   <p class="tagline">
-    Short technical notes. Drafts and planned topics are marked as such — nothing
-    here is implied to be a finished paper.
+    Short technical notes. New notes land alongside the experimental round that
+    produced them.
   </p>
 
   <ul class="entry-list">
     {
-      writing.map((w) => (
+      published.map((w) => (
         <li>
           <div class="entry-title">
             <a href={`/writing/${w.slug}/`}>{w.data.title}</a>
-            <span class="badge" style="margin-left: 0.5rem;">{w.data.status}</span>
           </div>
           <div class="entry-summary">{w.data.summary}</div>
           {w.data.date && <div class="entry-meta">{w.data.date}</div>}
@@ -28,4 +34,23 @@ const writing = (await getCollection("writing")).sort(
       ))
     }
   </ul>
+
+  {
+    drafts.length > 0 && (
+      <>
+        <h2>Drafts in progress</h2>
+        <ul class="entry-list">
+          {drafts.map((w) => (
+            <li>
+              <div class="entry-title">
+                <a href={`/writing/${w.slug}/`}>{w.data.title}</a>
+                <span class="badge">draft</span>
+              </div>
+              <div class="entry-summary">{w.data.summary}</div>
+            </li>
+          ))}
+        </ul>
+      </>
+    )
+  }
 </Base>

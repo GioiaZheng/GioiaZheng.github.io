@@ -1,12 +1,24 @@
 ---
 const year = new Date().getFullYear();
+
+// At build time, capture the current git short SHA and ISO build date so the
+// footer reflects exactly which commit produced the deployed site.
+const buildDate = new Date().toISOString().slice(0, 10);
+let commit = "local";
+try {
+  const { execSync } = await import("node:child_process");
+  commit = execSync("git rev-parse --short HEAD", { encoding: "utf-8" }).trim();
+} catch {
+  // No git context (e.g. tarball build) — fall back to "local".
+}
 ---
 
 <footer class="site-footer">
   <div class="site-footer-inner">
     <span>&copy; {year} Gioia Zheng</span>
-    <span>
-      <a href="https://github.com/GioiaZheng">GitHub</a>
+    <span class="muted">
+      built from <code>{commit}</code> on {buildDate}
     </span>
+    <span><a href="https://github.com/GioiaZheng">GitHub</a></span>
   </div>
 </footer>

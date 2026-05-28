@@ -2,29 +2,35 @@
 import { getCollection } from "astro:content";
 import Base from "../layouts/Base.astro";
 
-const projects = (await getCollection("projects"))
+const featured = (await getCollection("projects"))
   .filter((p) => p.data.featured)
   .sort((a, b) => a.data.order - b.data.order);
+
+const writing = (await getCollection("writing"))
+  .filter((w) => w.data.status === "published")
+  .sort((a, b) => (b.data.date ?? "").localeCompare(a.data.date ?? ""));
 ---
 
 <Base
   title="Gioia Zheng"
-  description="AI systems, retrieval, evaluation, research engineering."
+  description="Retrieval-augmented generation, evaluation, and failure analysis — built and reproduced on commodity hardware."
 >
   <h1>Gioia Zheng</h1>
-  <p class="tagline">AI Systems &middot; Retrieval &middot; Evaluation &middot; Research Engineering</p>
+  <p class="tagline">RAG Systems &middot; Reranking &middot; Grounding Evaluation &middot; CPU-Constrained ML</p>
 
   <p class="lede">
-    I build reproducible AI systems around retrieval, reranking, grounded
-    generation, and evaluation. My current work focuses on small-scale,
-    CPU-conscious RAG pipelines, metric robustness, and failure analysis for
-    retrieval-augmented generation.
+    I build retrieve &rarr; rerank &rarr; generate pipelines and the evaluation
+    machinery around them &mdash; paired-bootstrap confidence intervals,
+    NLI-based grounding scores, schema-versioned reproducibility manifests.
+    Every result is meant to be reproducible from a clean checkout on a single
+    laptop, not a cluster: explicit configs, cached intermediate artifacts, and
+    a failure taxonomy rather than only aggregate scores.
   </p>
 
-  <h2>Selected work</h2>
+  <h2>Featured project</h2>
   <ul class="entry-list">
     {
-      projects.map((p) => (
+      featured.map((p) => (
         <li>
           <div class="entry-title">
             <a href={`/projects/${p.slug}/`}>{p.data.title}</a>
@@ -34,11 +40,33 @@ const projects = (await getCollection("projects"))
       ))
     }
   </ul>
+  <p class="muted">
+    See <a href="/projects/">all projects</a> for older systems and coursework.
+  </p>
+
+  {
+    writing.length > 0 && (
+      <>
+        <h2>Recent writing</h2>
+        <ul class="entry-list">
+          {writing.slice(0, 3).map((w) => (
+            <li>
+              <div class="entry-title">
+                <a href={`/writing/${w.slug}/`}>{w.data.title}</a>
+              </div>
+              <div class="entry-summary">{w.data.summary}</div>
+              {w.data.date && <div class="entry-meta">{w.data.date}</div>}
+            </li>
+          ))}
+        </ul>
+      </>
+    )
+  }
 
   <h2>Elsewhere</h2>
   <ul>
     <li><a href="https://github.com/GioiaZheng">GitHub &mdash; @GioiaZheng</a></li>
-    <li><a href="/cv/Zheng_Gioia_cv.pdf">Resume (PDF)</a></li>
+    <li><a href="/cv/Zheng_Gioia_cv.pdf">Resume / CV (PDF)</a></li>
     <li><a href="mailto:gioia.zheng.stud@gmail.com">gioia.zheng.stud@gmail.com</a></li>
   </ul>
 </Base>
