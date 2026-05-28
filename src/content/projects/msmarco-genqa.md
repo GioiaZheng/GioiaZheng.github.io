@@ -61,7 +61,25 @@ Generation × retrieval source, full MS MARCO dev/small, 6 980 paired queries, p
   </div>
 </div>
 
-Retrieval-only, BM25 on the full 8.8 M-passage corpus: MRR@10 = 0.1703, Recall@100 = 0.6212, Recall@1000 = 0.8154 (6 980 queries).
+Retrieval-only, BM25 on the full 8.8 M-passage corpus (6 980 queries):
+
+<div class="metric-grid">
+  <div class="metric">
+    <div class="metric-label">MRR@10</div>
+    <div class="metric-value">0.170</div>
+    <div class="metric-delta">BM25, full corpus</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Recall@100</div>
+    <div class="metric-value">0.621</div>
+    <div class="metric-delta">BM25, full corpus</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Recall@1000</div>
+    <div class="metric-value">0.815</div>
+    <div class="metric-delta">BM25, full corpus</div>
+  </div>
+</div>
 
 ## Technical components
 

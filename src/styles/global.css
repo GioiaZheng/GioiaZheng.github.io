@@ -263,18 +263,29 @@ main.is-wide { max-width: var(--w-wide); }
   margin: 0 auto;
   padding: var(--s-4) var(--s-5);
   display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: var(--s-4);
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--s-1);
   color: var(--muted);
-  font-size: 0.78rem;
+}
+
+.site-footer-line {
+  font-size: 0.8rem;
+  color: var(--muted);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.4rem;
+}
+
+.site-footer-sep {
+  color: var(--line-strong);
 }
 
 .site-footer-build {
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   color: var(--muted);
-  opacity: 0.5;
+  opacity: 0.4;
   letter-spacing: 0.01em;
 }
 
@@ -300,29 +311,46 @@ main.is-wide { max-width: var(--w-wide); }
 /* ---------- hero (home) ---------- */
 
 .hero {
-  padding: var(--s-4) 0 var(--s-6);
+  padding: var(--s-6) 0 var(--s-8);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--s-6);
+}
+
+@media (min-width: 820px) {
+  .hero {
+    grid-template-columns: minmax(0, 1.6fr) minmax(15rem, 1fr);
+    gap: var(--s-7);
+    align-items: start;
+  }
+}
+
+.hero-text {
+  min-width: 0;
 }
 
 .hero h1 {
-  font-size: clamp(2rem, 5vw, 2.75rem);
-  letter-spacing: -0.025em;
+  font-size: clamp(2.4rem, 6vw, 3.75rem);
+  letter-spacing: -0.03em;
   font-weight: 600;
-  margin-bottom: var(--s-3);
+  line-height: 1.05;
+  margin-bottom: var(--s-4);
 }
 
 .hero-tagline {
   font-size: 0.92rem;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   color: var(--muted-strong);
-  margin-bottom: var(--s-5);
+  margin-bottom: var(--s-6);
   font-weight: 500;
 }
 
 .hero-positioning {
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   line-height: 1.55;
   color: var(--fg-soft);
-  max-width: 38rem;
+  max-width: 32rem;
   margin-bottom: var(--s-6);
 }
 
@@ -331,7 +359,51 @@ main.is-wide { max-width: var(--w-wide); }
   flex-wrap: wrap;
   gap: var(--s-3);
   align-items: center;
+  margin-bottom: var(--s-3);
+}
+
+/* current-focus side panel */
+.focus-panel {
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  padding: var(--s-5);
+  background: var(--surface);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.focus-panel-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 600;
+  margin-bottom: var(--s-4);
+  padding-bottom: var(--s-3);
+  border-bottom: 1px solid var(--line);
+}
+
+.focus-item {
+  margin-bottom: var(--s-4);
+}
+
+.focus-item:last-child {
+  margin-bottom: 0;
+}
+
+.focus-item-head {
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted-strong);
+  font-weight: 600;
   margin-bottom: var(--s-2);
+}
+
+.focus-item-body {
+  color: var(--fg);
+  font-size: 0.92rem;
+  line-height: 1.55;
 }
 
 .btn {
@@ -493,11 +565,70 @@ main.is-wide { max-width: var(--w-wide); }
 .card-featured {
   padding: var(--s-6);
   background: var(--surface);
-  border-color: var(--line);
+  border-color: var(--line-strong);
+  border-width: 1px;
 }
 
 .card-featured:hover {
   background: var(--surface-hover);
+  border-color: var(--fg-soft);
+}
+
+/* tag row inside cards (separated from summary) */
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  margin: var(--s-3) 0 var(--s-4);
+}
+
+.card-tag {
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: var(--muted-strong);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  padding: 0.1rem 0.5rem;
+  border-radius: var(--r-sm);
+  font-weight: 500;
+}
+
+/* compact in-card metric row */
+.card-metrics {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--s-2);
+  margin: var(--s-4) 0 var(--s-5);
+  padding: var(--s-4) var(--s-5);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.4;
+}
+
+.card-metric-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--s-3);
+}
+
+.card-metric-label {
+  color: var(--muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-family: var(--font-sans);
+  font-weight: 600;
+}
+
+.card-metric-value {
+  color: var(--fg);
+  font-weight: 500;
+  text-align: right;
 }
 
 .card-head {
@@ -859,7 +990,7 @@ main.is-wide { max-width: var(--w-wide); }
   align-items: center;
 }
 
-/* ---------- prose styling inside markdown bodies ---------- */
+/* ---------- prose (project detail bodies) ---------- */
 
 .prose h2 {
   font-size: 1.05rem;
@@ -899,6 +1030,80 @@ main.is-wide { max-width: var(--w-wide); }
 }
 
 .prose strong { color: var(--fg); }
+
+/* ---------- essay (writing post bodies) ---------- */
+
+.essay {
+  font-size: 1.05rem;
+  line-height: 1.78;
+  color: var(--fg-soft);
+}
+
+.essay > p {
+  font-size: 1.05rem;
+  line-height: 1.78;
+  margin-bottom: var(--s-5);
+  color: var(--fg-soft);
+  hyphens: auto;
+  text-wrap: pretty;
+}
+
+.essay > h2 {
+  font-size: 1.5rem;
+  letter-spacing: -0.015em;
+  text-transform: none;
+  font-weight: 600;
+  color: var(--fg);
+  margin: var(--s-8) 0 var(--s-4);
+  padding-bottom: 0;
+  border-bottom: 0;
+  line-height: 1.25;
+  max-width: 38rem;
+}
+
+.essay > h3 {
+  font-size: 1.15rem;
+  letter-spacing: -0.01em;
+  font-weight: 600;
+  color: var(--fg);
+  margin: var(--s-6) 0 var(--s-3);
+}
+
+.essay > p > strong { color: var(--fg); }
+
+.essay > ul,
+.essay > ol {
+  font-size: 1.02rem;
+  line-height: 1.7;
+  margin-bottom: var(--s-5);
+  padding-left: 1.5rem;
+}
+
+.essay > ul > li,
+.essay > ol > li {
+  margin: var(--s-2) 0;
+}
+
+.essay > blockquote {
+  border-left: 3px solid var(--line-strong);
+  margin: var(--s-5) 0;
+  padding: 0 var(--s-5);
+  color: var(--muted-strong);
+  font-style: italic;
+  font-size: 1rem;
+}
+
+.essay > hr {
+  margin: var(--s-7) 0 var(--s-5);
+  border-top: 1px solid var(--line);
+}
+
+.essay > p:first-child {
+  font-size: 1.18rem;
+  line-height: 1.6;
+  color: var(--fg);
+  margin-bottom: var(--s-6);
+}
 
 /* ---------- responsive ---------- */
 

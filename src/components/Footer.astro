@@ -12,10 +12,13 @@ try {
 
 <footer class="site-footer">
   <div class="site-footer-inner">
-    <span>© {year} Gioia Zheng</span>
-    <span class="site-footer-build">
-      <code>{commit}</code> · {buildDate}
-    </span>
-    <a href="https://github.com/GioiaZheng">GitHub</a>
+    <div class="site-footer-line">
+      <span>© {year} Gioia Zheng</span>
+      <span class="site-footer-sep">·</span>
+      <a href="https://github.com/GioiaZheng">GitHub</a>
+    </div>
+    <div class="site-footer-build">
+      Build: <code>{commit}</code> · {buildDate}
+    </div>
   </div>
 </footer>

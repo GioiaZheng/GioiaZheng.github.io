@@ -20,31 +20,58 @@ const recent = writing[0];
 >
   <!-- HERO -->
   <section class="hero">
-    <h1>Gioia Zheng</h1>
-    <p class="hero-tagline">
-      RAG Systems &middot; Reranking &middot; Grounding Evaluation &middot; CPU-Constrained ML
-    </p>
-    <p class="hero-positioning">
-      I build retrieve&nbsp;&rarr;&nbsp;rerank&nbsp;&rarr;&nbsp;generate pipelines and
-      the evaluation machinery that tells you whether they actually work.
-    </p>
-
-    <div class="hero-actions">
-      {
-        anchor && (
-          <a href={`/projects/${anchor.slug}/`} class="btn btn-primary">
-            Featured project &rarr;
-          </a>
-        )
-      }
-      <a href="https://github.com/GioiaZheng" class="btn">GitHub &rarr;</a>
+    <div class="hero-text">
+      <h1>Gioia Zheng</h1>
+      <p class="hero-tagline">
+        RAG &middot; Reranking &middot; Grounding Evaluation &middot; CPU-Constrained ML
+      </p>
+      <p class="hero-positioning">
+        I build retrieve&nbsp;&rarr;&nbsp;rerank&nbsp;&rarr;&nbsp;generate
+        pipelines and the evaluation machinery that tells you whether they
+        actually work.
+      </p>
+      <div class="hero-actions">
+        {
+          anchor && (
+            <a href={`/projects/${anchor.slug}/`} class="btn btn-primary">
+              Featured project &rarr;
+            </a>
+          )
+        }
+        <a href="https://github.com/GioiaZheng" class="btn">GitHub &rarr;</a>
+      </div>
+      <p class="hero-secondary">
+        <a href="/cv/Zheng_Gioia_cv.pdf">Resume / CV (PDF)</a>
+      </p>
     </div>
-    <p class="hero-secondary">
-      <a href="/cv/Zheng_Gioia_cv.pdf">Resume / CV (PDF)</a>
-    </p>
+
+    <aside class="focus-panel" aria-label="Current focus">
+      <div class="focus-panel-label">Currently</div>
+
+      <div class="focus-item">
+        <div class="focus-item-head">Focus</div>
+        <div class="focus-item-body">
+          Rerank-vs-grounding mismatch on a fixed seq2seq generator &mdash; when
+          surface metrics rise while NLI-based grounding regresses.
+        </div>
+      </div>
+
+      <div class="focus-item">
+        <div class="focus-item-head">Methods</div>
+        <div class="focus-item-body">
+          Paired bootstrap CIs · NLI entailment grounding · schema-v2
+          reproducibility manifests.
+        </div>
+      </div>
+
+      <div class="focus-item">
+        <div class="focus-item-head">Constraint</div>
+        <div class="focus-item-body">CPU-only, single-machine.</div>
+      </div>
+    </aside>
   </section>
 
-  <!-- FEATURED PROJECT + METRIC STRIP -->
+  <!-- FEATURED PROJECT -->
   {
     anchor && (
       <section class="section">
@@ -61,51 +88,34 @@ const recent = writing[0];
             </span>
           </div>
           <p class="card-summary">{anchor.data.summary}</p>
+
+          <div class="card-tags">
+            {anchor.data.tags.map((t) => (
+              <span class="card-tag">{t}</span>
+            ))}
+          </div>
+
+          <div class="card-metrics" aria-label="Headline numbers">
+            <div class="card-metric-row">
+              <span class="card-metric-label">Token-F1</span>
+              <span class="card-metric-value">Δ +0.171</span>
+            </div>
+            <div class="card-metric-row">
+              <span class="card-metric-label">95% CI</span>
+              <span class="card-metric-value">[+0.163, +0.178]</span>
+            </div>
+            <div class="card-metric-row">
+              <span class="card-metric-label">Queries</span>
+              <span class="card-metric-value">6,980 paired</span>
+            </div>
+          </div>
+
           <div class="card-meta">
-            <span>{anchor.data.tags.join(" · ")}</span>
-            {anchor.data.last_updated && (
-              <>
-                <span class="card-meta-sep">·</span>
-                <span>updated {anchor.data.last_updated}</span>
-              </>
-            )}
+            {anchor.data.last_updated && <span>updated {anchor.data.last_updated}</span>}
+            <span class="card-meta-sep">·</span>
+            <span class="card-action">View project →</span>
           </div>
         </a>
-
-        <div class="metric-strip" aria-label="Headline result, full MS MARCO dev/small">
-          <div class="metric">
-            <div class="metric-label">Token-F1</div>
-            <div class="metric-value">0.368</div>
-            <div class="metric-delta">Δ +0.171</div>
-            <div class="metric-ci">CI [+0.163, +0.178]</div>
-          </div>
-          <div class="metric">
-            <div class="metric-label">ROUGE-L</div>
-            <div class="metric-value">0.368</div>
-            <div class="metric-delta">Δ +0.174</div>
-            <div class="metric-ci">CI [+0.166, +0.181]</div>
-          </div>
-          <div class="metric">
-            <div class="metric-label">BLEU</div>
-            <div class="metric-value">+0.221</div>
-            <div class="metric-delta">Δ vs BM25</div>
-            <div class="metric-ci">CI strictly &gt; 0</div>
-          </div>
-          <div class="metric">
-            <div class="metric-label">Exact Match</div>
-            <div class="metric-value">+0.047</div>
-            <div class="metric-delta">Δ vs BM25</div>
-            <div class="metric-ci">CI strictly &gt; 0</div>
-          </div>
-        </div>
-
-        <p class="section-caption">
-          <span>
-            Headline numbers from <a href={`/projects/${anchor.slug}/`}>msmarco-genqa</a> &mdash;
-            6 980 paired queries, paired bootstrap (N&nbsp;=&nbsp;10 000).
-          </span>
-          <a href={`/projects/${anchor.slug}/#reproduce`}>How to reproduce &rarr;</a>
-        </p>
       </section>
     )
   }

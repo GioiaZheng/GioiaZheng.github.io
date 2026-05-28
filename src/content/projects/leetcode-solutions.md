@@ -31,9 +31,30 @@ A Python repo with one directory per problem, a generated catalog driven by a si
 
 ## Evidence / outputs
 
-- 99 problem directories, 99 reference solutions, Easy 28 / Medium 52 / Hard 19.
-- 13 problems with reviewed AI-card showcases across Blind 75 (10 tagged) and NeetCode 150 paths.
-- Generated, derived-from-source-of-truth catalog and topic index in-repo.
+<div class="metric-grid">
+  <div class="metric">
+    <div class="metric-label">Problems</div>
+    <div class="metric-value">99</div>
+    <div class="metric-delta">reference solutions</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Difficulty</div>
+    <div class="metric-value">28 / 52 / 19</div>
+    <div class="metric-delta">easy / med / hard</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Blind 75</div>
+    <div class="metric-value">10 / 75</div>
+    <div class="metric-delta">tagged</div>
+  </div>
+  <div class="metric">
+    <div class="metric-label">Reviewed</div>
+    <div class="metric-value">13</div>
+    <div class="metric-delta">AI-card showcases</div>
+  </div>
+</div>
+
+Generated catalog and topic index in-repo, derived from the `metadata.json` source-of-truth.
 
 ## Current status
 
