@@ -18,40 +18,59 @@ const other = all.filter((p) => !p.data.featured);
   <div class="page-header">
     <h1>Projects</h1>
     <p class="page-tagline">
-      Same template across every entry &mdash; problem, what I built, technical
-      components, evidence, status, limitations &mdash; so it's clear what's
-      claimed and what isn't.
+      Selected systems and implementation projects, with emphasis on
+      reproducibility, evaluation, and technical evidence.
     </p>
   </div>
 
-  <h2>Featured</h2>
   {
-    featured.map((p) => (
-      <ProjectCard
-        href={`/projects/${p.slug}/`}
-        title={p.data.title}
-        summary={p.data.summary}
-        status={p.data.status}
-        tags={p.data.tags}
-        updated={p.data.last_updated}
-        featured
-      />
-    ))
+    featured.length > 0 && (
+      <section class="section">
+        <div class="kicker">
+          <span>Featured</span>
+          <span>{featured.length} project{featured.length > 1 ? "s" : ""}</span>
+        </div>
+        {featured.map((p) => (
+          <ProjectCard
+            href={`/projects/${p.slug}/`}
+            title={p.data.title}
+            summary={p.data.summary}
+            status={p.data.status}
+            tags={p.data.tags}
+            updated={p.data.last_updated}
+            featured
+          />
+        ))}
+      </section>
+    )
   }
 
-  <h2>Other work</h2>
-  <div class="card-grid two-col">
-    {
-      other.map((p) => (
-        <ProjectCard
-          href={`/projects/${p.slug}/`}
-          title={p.data.title}
-          summary={p.data.summary}
-          status={p.data.status}
-          tags={p.data.tags}
-          updated={p.data.last_updated}
-        />
-      ))
-    }
-  </div>
+  {
+    other.length > 0 && (
+      <section class="section">
+        <div class="kicker">
+          <span>Other work</span>
+          <span>{other.length} entries</span>
+        </div>
+        <div class="card-grid two-col">
+          {other.map((p) => (
+            <ProjectCard
+              href={`/projects/${p.slug}/`}
+              title={p.data.title}
+              summary={p.data.summary}
+              status={p.data.status}
+              tags={p.data.tags}
+              updated={p.data.last_updated}
+            />
+          ))}
+        </div>
+        <p class="section-caption">
+          <span>
+            Older systems and coursework &mdash; listed for completeness, not as
+            representative of current research focus.
+          </span>
+        </p>
+      </section>
+    )
+  }
 </Base>

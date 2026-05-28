@@ -24,24 +24,37 @@ const drafts = all
     </p>
   </div>
 
-  <div class="card-grid">
-    {
-      published.map((w) => (
-        <a href={`/writing/${w.slug}/`} class="card">
-          <div class="card-head">
-            <div class="card-title">{w.data.title}</div>
-            {w.data.date && <span class="badge" data-status="published">{w.data.date}</span>}
-          </div>
-          <p class="card-summary">{w.data.summary}</p>
-        </a>
-      ))
-    }
-  </div>
+  {
+    published.length > 0 && (
+      <section class="section">
+        <div class="kicker">
+          <span>Published</span>
+          <span>{published.length} note{published.length > 1 ? "s" : ""}</span>
+        </div>
+        <div class="card-grid">
+          {published.map((w) => (
+            <a href={`/writing/${w.slug}/`} class="card">
+              <div class="card-head">
+                <div class="card-title">{w.data.title}</div>
+                {w.data.date && (
+                  <span class="badge" data-status="published">{w.data.date}</span>
+                )}
+              </div>
+              <p class="card-summary">{w.data.summary}</p>
+              <div class="card-action">Read note &rarr;</div>
+            </a>
+          ))}
+        </div>
+      </section>
+    )
+  }
 
   {
     drafts.length > 0 && (
-      <>
-        <h2>Drafts in progress</h2>
+      <section class="section">
+        <div class="kicker">
+          <span>Drafts in progress</span>
+        </div>
         <div class="card-grid">
           {drafts.map((w) => (
             <a href={`/writing/${w.slug}/`} class="card">
@@ -53,7 +66,7 @@ const drafts = all
             </a>
           ))}
         </div>
-      </>
+      </section>
     )
   }
 </Base>

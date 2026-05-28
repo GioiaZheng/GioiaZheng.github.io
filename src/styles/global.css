@@ -271,12 +271,21 @@ main.is-wide { max-width: var(--w-wide); }
   font-size: 0.78rem;
 }
 
+.site-footer-build {
+  font-size: 0.7rem;
+  color: var(--muted);
+  opacity: 0.5;
+  letter-spacing: 0.01em;
+}
+
 .site-footer-inner code {
-  font-size: 0.72rem;
+  font-family: var(--font-mono);
+  font-size: inherit;
+  font-weight: 400;
   background: transparent;
   padding: 0;
   border: 0;
-  color: var(--muted);
+  color: inherit;
 }
 
 .site-footer-inner a {
