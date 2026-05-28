@@ -6,10 +6,18 @@ import Footer from "../components/Footer.astro";
 interface Props {
   title: string;
   description?: string;
+  width?: "text" | "medium" | "wide";
 }
 
-const { title, description = "Gioia Zheng — AI systems, retrieval, evaluation, research engineering." } = Astro.props;
+const {
+  title,
+  description = "Gioia Zheng — RAG systems, reranking, grounding evaluation, CPU-constrained ML.",
+  width = "medium",
+} = Astro.props;
+
 const canonical = new URL(Astro.url.pathname, Astro.site).toString();
+const mainClass =
+  width === "text" ? "is-text" : width === "wide" ? "is-wide" : "";
 ---
 
 <!doctype html>
@@ -29,7 +37,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
   </head>
   <body>
     <Nav />
-    <main>
+    <main class={mainClass}>
       <slot />
     </main>
     <Footer />

@@ -1,0 +1,35 @@
+---
+interface Props {
+  href: string;
+  title: string;
+  summary: string;
+  status: string;
+  tags?: string[];
+  updated?: string;
+  featured?: boolean;
+}
+
+const {
+  href,
+  title,
+  summary,
+  status,
+  tags = [],
+  updated,
+  featured = false,
+} = Astro.props;
+---
+
+<a href={href} class:list={["card", featured && "card-featured"]}>
+  <div class="card-head">
+    <div class="card-title">{title}</div>
+    <span class="badge" data-status={status}>{status}</span>
+  </div>
+  <p class="card-summary">{summary}</p>
+  <div class="card-meta">
+    {tags.length > 0 && <span>{tags.join(" · ")}</span>}
+    {tags.length > 0 && updated && <span class="card-meta-sep">·</span>}
+    {updated && <span>updated {updated}</span>}
+  </div>
+  {featured && <div class="card-action">View project →</div>}
+</a>

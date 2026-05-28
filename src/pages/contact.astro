@@ -2,17 +2,36 @@
 import Base from "../layouts/Base.astro";
 ---
 
-<Base title="Contact — Gioia Zheng" description="How to reach me.">
-  <h1>Contact</h1>
-  <p>
-    Open to research-engineering roles and collaborations around retrieval,
-    evaluation reliability, reproducible ML systems, and applied NLP
-    infrastructure. The fastest channels:
-  </p>
-  <ul>
-    <li><a href="mailto:gioia.zheng.stud@gmail.com">gioia.zheng.stud@gmail.com</a></li>
-    <li><a href="https://github.com/GioiaZheng">GitHub &mdash; @GioiaZheng</a></li>
-    <li><a href="https://www.linkedin.com/in/gioia-zheng-9233a0303">LinkedIn</a></li>
-    <li><a href="/cv/Zheng_Gioia_cv.pdf">Resume / CV (PDF)</a></li>
-  </ul>
+<Base
+  title="Contact — Gioia Zheng"
+  description="How to reach me."
+  width="medium"
+>
+  <div class="page-header">
+    <h1>Contact</h1>
+    <p class="page-tagline">
+      Open to research-engineering roles and collaborations around retrieval,
+      evaluation reliability, reproducible ML systems, and applied NLP
+      infrastructure.
+    </p>
+  </div>
+
+  <div class="card-grid two-col">
+    <a href="mailto:gioia.zheng.stud@gmail.com" class="card">
+      <div class="card-head"><div class="card-title">Email</div></div>
+      <p class="card-summary">gioia.zheng.stud@gmail.com</p>
+    </a>
+    <a href="https://github.com/GioiaZheng" class="card">
+      <div class="card-head"><div class="card-title">GitHub</div></div>
+      <p class="card-summary">@GioiaZheng — code, projects, source for this site.</p>
+    </a>
+    <a href="https://www.linkedin.com/in/gioia-zheng-9233a0303" class="card">
+      <div class="card-head"><div class="card-title">LinkedIn</div></div>
+      <p class="card-summary">Professional profile and work history.</p>
+    </a>
+    <a href="/cv/Zheng_Gioia_cv.pdf" class="card">
+      <div class="card-head"><div class="card-title">Resume / CV</div></div>
+      <p class="card-summary">PDF, kept up to date alongside the site.</p>
+    </a>
+  </div>
 </Base>

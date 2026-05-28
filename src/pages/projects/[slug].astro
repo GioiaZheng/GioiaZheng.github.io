@@ -14,14 +14,27 @@ const { entry } = Astro.props;
 const { Content } = await entry.render();
 ---
 
-<Base title={`${entry.data.title} — Gioia Zheng`} description={entry.data.summary}>
-  <p class="entry-meta"><a href="/projects/">&larr; All projects</a></p>
-  <h1>{entry.data.title}</h1>
-  <p class="tagline">{entry.data.summary}</p>
-  <p class="entry-meta">
-    <span class="badge" data-status={entry.data.status}>{entry.data.status}</span>
-    {entry.data.tags.join(" · ")}
-    {entry.data.last_updated && <span> &middot; updated {entry.data.last_updated}</span>}
-  </p>
-  <Content />
+<Base
+  title={`${entry.data.title} — Gioia Zheng`}
+  description={entry.data.summary}
+  width="medium"
+>
+  <p class="page-crumb"><a href="/projects/">← Projects</a></p>
+
+  <header class="page-header">
+    <h1>{entry.data.title}</h1>
+    <p class="page-tagline">{entry.data.summary}</p>
+    <div class="page-meta">
+      <span class="badge" data-status={entry.data.status}>{entry.data.status}</span>
+      {entry.data.tags.length > 0 && <span>{entry.data.tags.join(" · ")}</span>}
+      {entry.data.last_updated && <span>· updated {entry.data.last_updated}</span>}
+      {entry.data.repo && (
+        <span>· <a href={entry.data.repo}>repo ↗</a></span>
+      )}
+    </div>
+  </header>
+
+  <article class="prose">
+    <Content />
+  </article>
 </Base>

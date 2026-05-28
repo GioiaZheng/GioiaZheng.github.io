@@ -14,42 +14,45 @@ const drafts = all
 <Base
   title="Writing — Gioia Zheng"
   description="Short technical notes on retrieval, generation, and evaluation."
+  width="medium"
 >
-  <h1>Writing</h1>
-  <p class="tagline">
-    Short technical notes. New notes land alongside the experimental round that
-    produced them.
-  </p>
+  <div class="page-header">
+    <h1>Writing</h1>
+    <p class="page-tagline">
+      Short technical notes. New notes land alongside the experimental round
+      that produced them.
+    </p>
+  </div>
 
-  <ul class="entry-list">
+  <div class="card-grid">
     {
       published.map((w) => (
-        <li>
-          <div class="entry-title">
-            <a href={`/writing/${w.slug}/`}>{w.data.title}</a>
+        <a href={`/writing/${w.slug}/`} class="card">
+          <div class="card-head">
+            <div class="card-title">{w.data.title}</div>
+            {w.data.date && <span class="badge" data-status="published">{w.data.date}</span>}
           </div>
-          <div class="entry-summary">{w.data.summary}</div>
-          {w.data.date && <div class="entry-meta">{w.data.date}</div>}
-        </li>
+          <p class="card-summary">{w.data.summary}</p>
+        </a>
       ))
     }
-  </ul>
+  </div>
 
   {
     drafts.length > 0 && (
       <>
         <h2>Drafts in progress</h2>
-        <ul class="entry-list">
+        <div class="card-grid">
           {drafts.map((w) => (
-            <li>
-              <div class="entry-title">
-                <a href={`/writing/${w.slug}/`}>{w.data.title}</a>
-                <span class="badge">draft</span>
+            <a href={`/writing/${w.slug}/`} class="card">
+              <div class="card-head">
+                <div class="card-title">{w.data.title}</div>
+                <span class="badge" data-status="draft">draft</span>
               </div>
-              <div class="entry-summary">{w.data.summary}</div>
-            </li>
+              <p class="card-summary">{w.data.summary}</p>
+            </a>
           ))}
-        </ul>
+        </div>
       </>
     )
   }

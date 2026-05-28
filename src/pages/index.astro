@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import Base from "../layouts/Base.astro";
+import ProjectCard from "../components/ProjectCard.astro";
 
 const featured = (await getCollection("projects"))
   .filter((p) => p.data.featured)
@@ -12,35 +13,52 @@ const writing = (await getCollection("writing"))
 ---
 
 <Base
-  title="Gioia Zheng"
-  description="Retrieval-augmented generation, evaluation, and failure analysis — built and reproduced on commodity hardware."
+  title="Gioia Zheng — RAG, evaluation, reproducible ML"
+  description="I build retrieve → rerank → generate pipelines and the evaluation machinery around them — on a single-laptop CPU budget."
+  width="medium"
 >
-  <h1>Gioia Zheng</h1>
-  <p class="tagline">RAG Systems &middot; Reranking &middot; Grounding Evaluation &middot; CPU-Constrained ML</p>
+  <section class="hero">
+    <h1>Gioia Zheng</h1>
+    <p class="hero-tagline">
+      RAG Systems &middot; Reranking &middot; Grounding Evaluation &middot; CPU-Constrained ML
+    </p>
+    <p class="hero-positioning">
+      I build retrieve&nbsp;&rarr;&nbsp;rerank&nbsp;&rarr;&nbsp;generate pipelines and the
+      evaluation machinery that tells you whether they actually work. Current
+      focus: paired-bootstrap CIs, NLI grounding scores, and reproducibility
+      manifests on a single-laptop CPU budget.
+    </p>
 
-  <p class="lede">
-    I build retrieve &rarr; rerank &rarr; generate pipelines and the evaluation
-    machinery around them &mdash; paired-bootstrap confidence intervals,
-    NLI-based grounding scores, schema-versioned reproducibility manifests.
-    Every result is meant to be reproducible from a clean checkout on a single
-    laptop, not a cluster: explicit configs, cached intermediate artifacts, and
-    a failure taxonomy rather than only aggregate scores.
-  </p>
+    <div class="hero-actions">
+      {
+        featured[0] && (
+          <a href={`/projects/${featured[0].slug}/`} class="btn btn-primary">
+            Featured project &rarr;
+          </a>
+        )
+      }
+      <a href="https://github.com/GioiaZheng" class="btn">GitHub &rarr;</a>
+    </div>
+    <p class="hero-secondary">
+      <a href="/cv/Zheng_Gioia_cv.pdf">Resume / CV (PDF)</a>
+    </p>
+  </section>
 
-  <h2>Featured project</h2>
-  <ul class="entry-list">
-    {
-      featured.map((p) => (
-        <li>
-          <div class="entry-title">
-            <a href={`/projects/${p.slug}/`}>{p.data.title}</a>
-          </div>
-          <div class="entry-summary">{p.data.summary}</div>
-        </li>
-      ))
-    }
-  </ul>
-  <p class="muted">
+  <h2>Featured</h2>
+  {
+    featured.map((p) => (
+      <ProjectCard
+        href={`/projects/${p.slug}/`}
+        title={p.data.title}
+        summary={p.data.summary}
+        status={p.data.status}
+        tags={p.data.tags}
+        updated={p.data.last_updated}
+        featured
+      />
+    ))
+  }
+  <p class="muted" style="margin-top: 1rem;">
     See <a href="/projects/">all projects</a> for older systems and coursework.
   </p>
 
@@ -48,25 +66,22 @@ const writing = (await getCollection("writing"))
     writing.length > 0 && (
       <>
         <h2>Recent writing</h2>
-        <ul class="entry-list">
-          {writing.slice(0, 3).map((w) => (
-            <li>
-              <div class="entry-title">
-                <a href={`/writing/${w.slug}/`}>{w.data.title}</a>
+        <div class="card-grid">
+          {writing.slice(0, 2).map((w) => (
+            <a href={`/writing/${w.slug}/`} class="card">
+              <div class="card-head">
+                <div class="card-title">{w.data.title}</div>
               </div>
-              <div class="entry-summary">{w.data.summary}</div>
-              {w.data.date && <div class="entry-meta">{w.data.date}</div>}
-            </li>
+              <p class="card-summary">{w.data.summary}</p>
+              {w.data.date && (
+                <div class="card-meta">
+                  <span>{w.data.date}</span>
+                </div>
+              )}
+            </a>
           ))}
-        </ul>
+        </div>
       </>
     )
   }
-
-  <h2>Elsewhere</h2>
-  <ul>
-    <li><a href="https://github.com/GioiaZheng">GitHub &mdash; @GioiaZheng</a></li>
-    <li><a href="/cv/Zheng_Gioia_cv.pdf">Resume / CV (PDF)</a></li>
-    <li><a href="mailto:gioia.zheng.stud@gmail.com">gioia.zheng.stud@gmail.com</a></li>
-  </ul>
 </Base>

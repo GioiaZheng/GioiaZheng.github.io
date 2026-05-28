@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import Base from "../../layouts/Base.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
 
 const all = (await getCollection("projects")).sort(
   (a, b) => a.data.order - b.data.order,
@@ -11,58 +12,46 @@ const other = all.filter((p) => !p.data.featured);
 
 <Base
   title="Projects — Gioia Zheng"
-  description="Retrieval, reranking, grounded generation, evaluation. Plus older systems and coursework, listed separately."
+  description="Retrieval, reranking, grounded generation, evaluation."
+  width="wide"
 >
-  <h1>Projects</h1>
-  <p class="tagline">
-    Every entry uses the same template &mdash; problem, what I built, technical
-    components, evidence, status, limitations &mdash; so it's clear what's claimed
-    and what isn't.
-  </p>
+  <div class="page-header">
+    <h1>Projects</h1>
+    <p class="page-tagline">
+      Same template across every entry &mdash; problem, what I built, technical
+      components, evidence, status, limitations &mdash; so it's clear what's
+      claimed and what isn't.
+    </p>
+  </div>
 
   <h2>Featured</h2>
-  <ul class="entry-list">
-    {
-      featured.map((p) => (
-        <li>
-          <div class="entry-title">
-            <a href={`/projects/${p.slug}/`}>{p.data.title}</a>
-            <span class="badge" data-status={p.data.status}>{p.data.status}</span>
-          </div>
-          <div class="entry-summary">{p.data.summary}</div>
-          <div class="entry-meta">
-            {p.data.tags.join(" · ")}
-            {p.data.last_updated && (
-              <span> &middot; updated {p.data.last_updated}</span>
-            )}
-          </div>
-        </li>
-      ))
-    }
-  </ul>
+  {
+    featured.map((p) => (
+      <ProjectCard
+        href={`/projects/${p.slug}/`}
+        title={p.data.title}
+        summary={p.data.summary}
+        status={p.data.status}
+        tags={p.data.tags}
+        updated={p.data.last_updated}
+        featured
+      />
+    ))
+  }
 
   <h2>Other work</h2>
-  <p class="muted">
-    Older projects, coursework, and study repos. Listed for completeness, not as
-    representative of current research focus.
-  </p>
-  <ul class="entry-list">
+  <div class="card-grid two-col">
     {
       other.map((p) => (
-        <li>
-          <div class="entry-title">
-            <a href={`/projects/${p.slug}/`}>{p.data.title}</a>
-            <span class="badge" data-status={p.data.status}>{p.data.status}</span>
-          </div>
-          <div class="entry-summary">{p.data.summary}</div>
-          <div class="entry-meta">
-            {p.data.tags.join(" · ")}
-            {p.data.last_updated && (
-              <span> &middot; updated {p.data.last_updated}</span>
-            )}
-          </div>
-        </li>
+        <ProjectCard
+          href={`/projects/${p.slug}/`}
+          title={p.data.title}
+          summary={p.data.summary}
+          status={p.data.status}
+          tags={p.data.tags}
+          updated={p.data.last_updated}
+        />
       ))
     }
-  </ul>
+  </div>
 </Base>
