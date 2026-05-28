@@ -1,0 +1,44 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../layouts/Base.astro";
+
+const projects = (await getCollection("projects"))
+  .filter((p) => p.data.featured)
+  .sort((a, b) => a.data.order - b.data.order);
+---
+
+<Base
+  title="Gioia Zheng"
+  description="AI systems, retrieval, evaluation, research engineering."
+>
+  <h1>Gioia Zheng</h1>
+  <p class="tagline">AI Systems &middot; Retrieval &middot; Evaluation &middot; Research Engineering</p>
+
+  <p class="lede">
+    I build reproducible AI systems around retrieval, reranking, grounded
+    generation, and evaluation. My current work focuses on small-scale,
+    CPU-conscious RAG pipelines, metric robustness, and failure analysis for
+    retrieval-augmented generation.
+  </p>
+
+  <h2>Selected work</h2>
+  <ul class="entry-list">
+    {
+      projects.map((p) => (
+        <li>
+          <div class="entry-title">
+            <a href={`/projects/${p.slug}/`}>{p.data.title}</a>
+          </div>
+          <div class="entry-summary">{p.data.summary}</div>
+        </li>
+      ))
+    }
+  </ul>
+
+  <h2>Elsewhere</h2>
+  <ul>
+    <li><a href="https://github.com/GioiaZheng">GitHub &mdash; @GioiaZheng</a></li>
+    <li><a href="/cv/Zheng_Gioia_cv.pdf">Resume (PDF)</a></li>
+    <li><a href="mailto:gioia.zheng.stud@gmail.com">gioia.zheng.stud@gmail.com</a></li>
+  </ul>
+</Base>

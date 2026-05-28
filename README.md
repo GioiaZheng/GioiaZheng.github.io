@@ -1,0 +1,65 @@
+# gioiazheng.github.io
+
+Source for [gioiazheng.github.io](https://gioiazheng.github.io/) — personal
+technical site. Static, content-first, no analytics, no trackers.
+
+## Stack
+
+- [Astro](https://astro.build/) v5, content collections + Markdown
+- Vanilla CSS, no UI framework
+- Deployed to GitHub Pages via the official `actions/deploy-pages` action
+
+## Local development
+
+Requires Node `>=18.20.8` (pinned in `.nvmrc`).
+
+```sh
+npm install
+npm run dev      # local server on http://localhost:4321
+npm run build    # production build into ./dist
+npm run preview  # serve ./dist locally
+```
+
+## Editing content
+
+Content lives under [`src/content/`](src/content/) as Markdown with
+frontmatter — the schema is in
+[`src/content/config.ts`](src/content/config.ts).
+
+- **Projects** → `src/content/projects/<slug>.md`. Required fields:
+  `title`, `summary`, `order`, `status`, optional `repo` / `featured` / `tags`.
+- **Writing** → `src/content/writing/<slug>.md`. Required fields:
+  `title`, `summary`, `status` (`draft` / `planned` / `published`).
+
+Adding a file is enough — the routes at `/projects/<slug>/` and
+`/writing/<slug>/` are generated from the collection.
+
+## Site structure
+
+```
+src/
+  layouts/Base.astro           # html shell, header, footer
+  components/                  # Nav, Footer
+  pages/
+    index.astro                # home
+    projects/index.astro       # projects list
+    projects/[slug].astro      # one project per markdown file
+    writing/index.astro        # writing list
+    writing/[slug].astro       # one note per markdown file
+    contact.astro
+  content/
+    config.ts                  # collection schemas
+    projects/*.md
+    writing/*.md
+  styles/global.css            # all site styles
+public/
+  cv/Zheng_Gioia_cv.pdf        # served at /cv/Zheng_Gioia_cv.pdf
+```
+
+## Deployment
+
+Push to `main`. The workflow in
+[`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) builds the
+site and publishes the `dist/` artifact to Pages.
+
+Repository setting required once: **Settings → Pages → Source → GitHub Actions**.

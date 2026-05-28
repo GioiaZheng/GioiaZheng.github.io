@@ -1,0 +1,35 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../../layouts/Base.astro";
+
+const projects = (await getCollection("projects")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+---
+
+<Base title="Projects — Gioia Zheng" description="Open-source projects, in retrieval, generation, evaluation, and backend systems.">
+  <h1>Projects</h1>
+  <p class="tagline">
+    Independent open-source work. Every entry uses the same template:
+    problem, what I built, technical components, evidence, status, limitations.
+  </p>
+
+  <ul class="entry-list">
+    {
+      projects.map((p) => (
+        <li>
+          <div class="entry-title">
+            <a href={`/projects/${p.slug}/`}>{p.data.title}</a>
+            {p.data.status !== "active" && (
+              <span class="badge" style="margin-left: 0.5rem;">{p.data.status}</span>
+            )}
+          </div>
+          <div class="entry-summary">{p.data.summary}</div>
+          {p.data.tags.length > 0 && (
+            <div class="entry-meta">{p.data.tags.join(" · ")}</div>
+          )}
+        </li>
+      ))
+    }
+  </ul>
+</Base>

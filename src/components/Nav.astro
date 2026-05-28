@@ -1,0 +1,26 @@
+---
+const path = Astro.url.pathname.replace(/\/$/, "") || "/";
+const links = [
+  { href: "/", label: "Home" },
+  { href: "/projects", label: "Projects" },
+  { href: "/writing", label: "Writing" },
+  { href: "/contact", label: "Contact" },
+];
+const isCurrent = (href: string) =>
+  href === "/" ? path === "/" : path === href || path.startsWith(href + "/");
+---
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a href="/" class="site-name">Gioia Zheng</a>
+    <nav class="site-nav" aria-label="Primary">
+      {
+        links.map((l) => (
+          <a href={l.href} aria-current={isCurrent(l.href) ? "page" : undefined}>
+            {l.label}
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+</header>
