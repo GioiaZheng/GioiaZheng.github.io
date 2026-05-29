@@ -990,6 +990,18 @@ main.is-wide { max-width: var(--w-wide); }
   align-items: center;
 }
 
+/* ---------- contact page extras ---------- */
+
+.contact-context {
+  margin-top: var(--s-7);
+  padding-top: var(--s-5);
+  border-top: 1px solid var(--line);
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.55;
+  max-width: 32rem;
+}
+
 /* ---------- prose (project detail bodies) ---------- */
 
 .prose h2 {
