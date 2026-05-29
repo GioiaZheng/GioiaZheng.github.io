@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import Base from "../../layouts/Base.astro";
 import ProjectCard from "../../components/ProjectCard.astro";
+import { entrySlug } from "../../lib/content";
 
 const all = (await getCollection("projects")).sort(
   (a, b) => a.data.order - b.data.order,
@@ -32,7 +33,7 @@ const other = all.filter((p) => !p.data.featured);
         </div>
         {featured.map((p) => (
           <ProjectCard
-            href={`/projects/${p.slug}/`}
+            href={`/projects/${entrySlug(p)}/`}
             title={p.data.title}
             summary={p.data.summary}
             status={p.data.status}
@@ -55,7 +56,7 @@ const other = all.filter((p) => !p.data.featured);
         <div class="card-grid two-col">
           {other.map((p) => (
             <ProjectCard
-              href={`/projects/${p.slug}/`}
+              href={`/projects/${entrySlug(p)}/`}
               title={p.data.title}
               summary={p.data.summary}
               status={p.data.status}

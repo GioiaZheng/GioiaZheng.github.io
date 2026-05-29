@@ -1,17 +1,18 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 import Base from "../../layouts/Base.astro";
+import { entrySlug } from "../../lib/content";
 
 export async function getStaticPaths() {
   const projects = await getCollection("projects");
   return projects.map((p) => ({
-    params: { slug: p.slug },
+    params: { slug: entrySlug(p) },
     props: { entry: p },
   }));
 }
 
 const { entry } = Astro.props;
-const { Content } = await entry.render();
+const { Content } = await render(entry);
 ---
 
 <Base

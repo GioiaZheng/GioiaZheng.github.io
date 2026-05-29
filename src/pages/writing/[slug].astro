@@ -1,17 +1,18 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 import Base from "../../layouts/Base.astro";
+import { entrySlug } from "../../lib/content";
 
 export async function getStaticPaths() {
   const writing = await getCollection("writing");
   return writing.map((w) => ({
-    params: { slug: w.slug },
+    params: { slug: entrySlug(w) },
     props: { entry: w },
   }));
 }
 
 const { entry } = Astro.props;
-const { Content } = await entry.render();
+const { Content } = await render(entry);
 ---
 
 <Base

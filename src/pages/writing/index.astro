@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import Base from "../../layouts/Base.astro";
+import { entrySlug } from "../../lib/content";
 
 const all = await getCollection("writing");
 const published = all
@@ -33,7 +34,7 @@ const drafts = all
         </div>
         <div class="card-grid">
           {published.map((w) => (
-            <a href={`/writing/${w.slug}/`} class="card">
+            <a href={`/writing/${entrySlug(w)}/`} class="card">
               <div class="card-head">
                 <div class="card-title">{w.data.title}</div>
                 {w.data.date && (
@@ -57,7 +58,7 @@ const drafts = all
         </div>
         <div class="card-grid">
           {drafts.map((w) => (
-            <a href={`/writing/${w.slug}/`} class="card">
+            <a href={`/writing/${entrySlug(w)}/`} class="card">
               <div class="card-head">
                 <div class="card-title">{w.data.title}</div>
                 <span class="badge" data-status="draft">draft</span>

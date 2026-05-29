@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import Base from "../layouts/Base.astro";
+import { entrySlug } from "../lib/content";
 
 const featured = (await getCollection("projects"))
   .filter((p) => p.data.featured)
@@ -33,7 +34,7 @@ const recent = writing[0];
       <div class="hero-actions">
         {
           anchor && (
-            <a href={`/projects/${anchor.slug}/`} class="btn btn-primary">
+            <a href={`/projects/${entrySlug(anchor)}/`} class="btn btn-primary">
               Featured project &rarr;
             </a>
           )
@@ -83,7 +84,7 @@ const recent = writing[0];
           <a href="/projects/">All projects &rarr;</a>
         </div>
 
-        <a href={`/projects/${anchor.slug}/`} class="card card-featured">
+        <a href={`/projects/${entrySlug(anchor)}/`} class="card card-featured">
           <div class="card-head">
             <div class="card-title">{anchor.data.title}</div>
             <span class="badge" data-status={anchor.data.status}>
@@ -132,7 +133,7 @@ const recent = writing[0];
           {writing.length > 1 && <a href="/writing/">All notes &rarr;</a>}
         </div>
 
-        <a href={`/writing/${recent.slug}/`} class="card">
+        <a href={`/writing/${entrySlug(recent)}/`} class="card">
           <div class="card-head">
             <div class="card-title">{recent.data.title}</div>
             {recent.data.date && (
