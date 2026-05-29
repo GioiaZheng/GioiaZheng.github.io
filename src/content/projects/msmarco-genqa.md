@@ -4,7 +4,7 @@ summary: Reproducible retrieve → rerank → generate pipeline on MS MARCO with
 order: 1
 featured: true
 status: active
-last_updated: "2026-05-28"
+last_updated: "2026-05-29"
 repo: https://github.com/GioiaZheng/msmarco-genqa
 tags: ["retrieval", "rag", "evaluation", "reproducibility"]
 ---
@@ -19,7 +19,7 @@ tags: ["retrieval", "rag", "evaluation", "reproducibility"]
   <dt>Reproducibility</dt>
   <dd>Schema-v2 manifest contract; <code>make reproduce-baseline</code> from clean clone</dd>
   <dt>Status</dt>
-  <dd>Active &mdash; CPU-only, single-machine, 173 tests passing</dd>
+  <dd>Active &mdash; CPU-only, single-machine, 371 tests passing</dd>
 </dl>
 
 ## Problem
@@ -118,7 +118,7 @@ make reproduce-baseline
 
 ## Current status
 
-Active. Schema-v2 manifest contract closed in the most recent reproducibility-protocol release. Next round (`research/metric-robustness`) extends the contract with NLI-specific fields and runs the full factorial &mdash; multiple NLI backbones × score formulas × thresholds × seeds &mdash; with paired bootstrap CIs and a length covariate. A failure taxonomy is being built as a versioned data product.
+Active. Schema-v2 manifest contract closed in the reproducibility-protocol release, then extended with per-task NLI profile fields (backbone, score formula, threshold, label-index map, premise→hypothesis direction). The upcoming `research/metric-robustness` round runs the full factorial &mdash; multiple NLI backbones × score formulas × thresholds × seeds &mdash; with paired bootstrap CIs, a length covariate, and a failure taxonomy as a versioned data product.
 
 ## Repo
 
