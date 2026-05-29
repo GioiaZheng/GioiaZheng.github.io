@@ -23,6 +23,5 @@ pnpm-debug.log*
 *.swp
 *.swo
 
-# Local agent state — never commit
-.claude/
+# Local workspace state — never commit
 .cursor/
