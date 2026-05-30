@@ -19,30 +19,27 @@ const recent = writing[0];
   description="B.Sc. student in Applied Computer Science and Artificial Intelligence building reproducible retrieval and evaluation systems for large-scale QA pipelines."
   width="medium"
 >
-  <!-- HERO -->
   <section class="hero">
     <div class="hero-text">
+      <p class="hero-eyebrow">Retrieval systems · evaluation · automation</p>
       <h1>Gioia Zheng</h1>
       <p class="hero-tagline">
         Information Retrieval &middot; RAG Evaluation &middot; Reproducible ML &middot; AI Infrastructure
       </p>
       <p class="hero-positioning">
         B.Sc. student at Sapienza University of Rome building reproducible
-        retrieve&nbsp;&rarr;&nbsp;rerank&nbsp;&rarr;&nbsp;generate systems and the
+        retrieve&nbsp;→&nbsp;rerank&nbsp;→&nbsp;generate systems and the
         evaluation machinery around large-scale QA pipelines.
       </p>
       <div class="hero-actions">
         {
           anchor && (
             <a href={`/projects/${entrySlug(anchor)}/`} class="btn btn-primary">
-              Featured project &rarr;
+              Featured project
             </a>
           )
         }
-        <a href="mailto:gioia.zheng.stud@gmail.com" class="btn">Email &rarr;</a>
-        <a href="https://www.linkedin.com/in/gioia-zheng-9233a0303" class="btn">LinkedIn &rarr;</a>
-        <a href="https://github.com/GioiaZheng" class="btn">GitHub &rarr;</a>
-        <a href="/cv/Gioia_Zheng_cv.pdf" class="btn">Resume &rarr;</a>
+        <a href="/contact/" class="btn">Contact me</a>
       </div>
     </div>
 
@@ -77,13 +74,12 @@ const recent = writing[0];
     </aside>
   </section>
 
-  <!-- FEATURED PROJECT -->
   {
     anchor && (
       <section class="section">
         <div class="kicker">
           <span>Featured project</span>
-          <a href="/projects/">All projects &rarr;</a>
+          <a href="/projects/">All projects</a>
         </div>
 
         <a href={`/projects/${entrySlug(anchor)}/`} class="card card-featured">
@@ -119,20 +115,19 @@ const recent = writing[0];
           <div class="card-meta">
             {anchor.data.last_updated && <span>updated {anchor.data.last_updated}</span>}
             <span class="card-meta-sep">·</span>
-            <span class="card-action">View project →</span>
+            <span class="card-action">View project</span>
           </div>
         </a>
       </section>
     )
   }
 
-  <!-- WRITING -->
   {
     recent && (
       <section class="section">
         <div class="kicker">
           <span>Recent writing</span>
-          {writing.length > 1 && <a href="/writing/">All notes &rarr;</a>}
+          {writing.length > 1 && <a href="/writing/">All notes</a>}
         </div>
 
         <a href={`/writing/${entrySlug(recent)}/`} class="card">
@@ -145,7 +140,7 @@ const recent = writing[0];
             )}
           </div>
           <p class="card-summary">{recent.data.summary}</p>
-          <div class="card-action">Read note &rarr;</div>
+          <div class="card-action">Read note</div>
         </a>
       </section>
     )
