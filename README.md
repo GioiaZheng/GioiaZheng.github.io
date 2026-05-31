@@ -9,15 +9,24 @@ technical site. Static, content-first, no analytics, no trackers.
 - Vanilla CSS, no UI framework
 - Deployed to GitHub Pages via the official `actions/deploy-pages` action
 
-## Local development
+## Quickstart
 
 Requires Node `>=18.20.8` (pinned in `.nvmrc`).
 
 ```sh
+git clone https://github.com/GioiaZheng/GioiaZheng.github.io.git
+cd GioiaZheng.github.io
+
 npm install
 npm run dev      # local server on http://localhost:4321
 npm run build    # production build into ./dist
 npm run preview  # serve ./dist locally
+```
+
+Expected output:
+
+```text
+Local: http://localhost:4321/
 ```
 
 ## Editing content
@@ -38,7 +47,7 @@ Adding a file is enough — the routes at `/projects/<slug>/` and
 
 ```
 src/
-  layouts/Base.astro           # html shell, header, footer
+  layouts/Base.astro           # html wrapper, header, footer
   components/                  # Nav, Footer
   pages/
     index.astro                # home
