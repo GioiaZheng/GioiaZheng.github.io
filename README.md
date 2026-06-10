@@ -5,13 +5,13 @@ technical site. Static, content-first, no analytics, no trackers.
 
 ## Stack
 
-- [Astro](https://astro.build/) v5, content collections + Markdown
+- [Astro](https://astro.build/) v6, content collections + Markdown
 - Vanilla CSS, no UI framework
 - Deployed to GitHub Pages via the official `actions/deploy-pages` action
 
 ## Quickstart
 
-Requires Node `>=18.20.8` (pinned in `.nvmrc`).
+Requires Node `>=22.12.0` (pinned to `22.14.0` in `.nvmrc`).
 
 ```sh
 git clone https://github.com/GioiaZheng/GioiaZheng.github.io.git
