@@ -34,7 +34,7 @@
     "Times New Roman", serif;
 
   /* containers */
-  --w-text: 44rem;     /* ~704px — prose pages */
+  --w-text: 46rem;     /* ~736px — prose pages */
   --w-medium: 52rem;   /* ~832px — home, project detail */
   --w-wide: 64rem;     /* ~1024px — card grids */
 
@@ -422,6 +422,18 @@ main.is-wide {
   }
 }
 
+@media (min-width: 1080px) {
+  .hero {
+    grid-template-columns: minmax(0, 1.7fr) minmax(18rem, 1fr);
+    gap: var(--s-8);
+    padding-top: var(--s-5);
+  }
+  .hero-positioning {
+    font-size: 1.22rem;
+    max-width: 36rem;
+  }
+}
+
 .hero-text {
   min-width: 0;
   max-width: 100%;
@@ -464,7 +476,7 @@ main.is-wide {
 
 .hero h1 {
   font-family: var(--font-serif);
-  font-size: clamp(2.5rem, 12vw, 4.5rem);
+  font-size: clamp(2.5rem, 9vw, 5.25rem);
   letter-spacing: -0.015em;
   font-weight: 600;
   line-height: 1.02;
@@ -497,6 +509,36 @@ main.is-wide {
   gap: var(--s-3);
   align-items: center;
   margin-bottom: var(--s-2);
+}
+
+/* full-width monospace spec bar under the hero (fills horizontal space on
+   wide screens, doubles as a technical status strip) */
+.hero-spec {
+  grid-column: 1 / -1;
+  list-style: none;
+  margin: var(--s-6) 0 0;
+  padding: var(--s-4) 0 0;
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3) var(--s-7);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--fg-soft);
+}
+
+.hero-spec li {
+  margin: 0;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.hero-spec-k {
+  color: var(--accent);
+  font-size: 0.64rem;
+  letter-spacing: 0.12em;
+  font-weight: 650;
 }
 
 .hero-contact {
@@ -1180,24 +1222,25 @@ main.is-wide {
 }
 
 .page-header {
-  margin-bottom: var(--s-6);
-  padding: var(--s-6) 0 var(--s-5);
+  margin-bottom: var(--s-7);
+  padding: var(--s-7) 0 var(--s-6);
   border-bottom: 1px solid var(--line);
 }
 
 .page-header h1 {
   font-family: var(--font-serif);
-  font-size: clamp(2.1rem, 5vw, 3.2rem);
-  letter-spacing: -0.015em;
+  font-size: clamp(2.5rem, 5.5vw, 4rem);
+  letter-spacing: -0.018em;
+  line-height: 1.08;
   font-weight: 600;
-  margin-bottom: var(--s-2);
+  margin-bottom: var(--s-3);
 }
 
 .page-tagline {
-  font-size: 1.05rem;
+  font-size: 1.2rem;
   color: var(--fg-soft);
-  line-height: 1.55;
-  max-width: 38rem;
+  line-height: 1.6;
+  max-width: 40rem;
 }
 
 .page-meta {
@@ -1266,14 +1309,14 @@ main.is-wide {
 /* ---------- essay (writing post bodies) ---------- */
 
 .essay {
-  font-size: 1.05rem;
-  line-height: 1.78;
+  font-size: 1.1rem;
+  line-height: 1.8;
   color: var(--fg-soft);
 }
 
 .essay > p {
-  font-size: 1.05rem;
-  line-height: 1.78;
+  font-size: 1.1rem;
+  line-height: 1.8;
   margin-bottom: var(--s-5);
   color: var(--fg-soft);
   hyphens: auto;
@@ -1281,7 +1324,8 @@ main.is-wide {
 }
 
 .essay > h2 {
-  font-size: 1.5rem;
+  font-family: var(--font-serif);
+  font-size: 1.85rem;
   letter-spacing: -0.015em;
   text-transform: none;
   font-weight: 600;
@@ -1289,7 +1333,7 @@ main.is-wide {
   margin: var(--s-8) 0 var(--s-4);
   padding-bottom: 0;
   border-bottom: 0;
-  line-height: 1.25;
+  line-height: 1.2;
   max-width: 38rem;
 }
 
@@ -1331,8 +1375,8 @@ main.is-wide {
 }
 
 .essay > p:first-child {
-  font-size: 1.18rem;
-  line-height: 1.6;
+  font-size: 1.34rem;
+  line-height: 1.62;
   color: var(--fg);
   margin-bottom: var(--s-6);
 }
