@@ -1325,8 +1325,8 @@ main.is-wide {
 }
 
 .prose p {
-  font-size: 1rem;
-  line-height: 1.7;
+  font-size: 1.12rem;
+  line-height: 1.78;
   color: var(--fg-soft);
 }
 
@@ -1348,14 +1348,14 @@ main.is-wide {
 /* ---------- essay (writing post bodies) ---------- */
 
 .essay {
-  font-size: 1.1rem;
-  line-height: 1.8;
+  font-size: 1.24rem;
+  line-height: 1.85;
   color: var(--fg-soft);
 }
 
 .essay > p {
-  font-size: 1.1rem;
-  line-height: 1.8;
+  font-size: 1.24rem;
+  line-height: 1.85;
   margin-bottom: var(--s-5);
   color: var(--fg-soft);
   hyphens: auto;
@@ -1388,8 +1388,8 @@ main.is-wide {
 
 .essay > ul,
 .essay > ol {
-  font-size: 1.02rem;
-  line-height: 1.7;
+  font-size: 1.18rem;
+  line-height: 1.78;
   margin-bottom: var(--s-5);
   padding-left: 1.5rem;
 }
@@ -1414,8 +1414,8 @@ main.is-wide {
 }
 
 .essay > p:first-child {
-  font-size: 1.34rem;
-  line-height: 1.62;
+  font-size: 1.46rem;
+  line-height: 1.6;
   color: var(--fg);
   margin-bottom: var(--s-6);
 }
