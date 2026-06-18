@@ -28,6 +28,9 @@
     Arial, sans-serif;
   --font-mono:
     "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Monaco, Consolas, monospace;
+  --font-serif:
+    ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino, "Georgia",
+    "Times New Roman", serif;
 
   /* containers */
   --w-text: 44rem;     /* ~704px — prose pages */
@@ -98,10 +101,9 @@ html {
 body {
   margin: 0;
   background:
-    linear-gradient(rgba(17, 18, 20, 0.028) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(17, 18, 20, 0.022) 1px, transparent 1px),
+    radial-gradient(1200px 560px at 6% -12%, rgba(127, 78, 91, 0.07), transparent 58%),
+    radial-gradient(1000px 620px at 100% -6%, rgba(66, 95, 84, 0.055), transparent 55%),
     var(--bg);
-  background-size: 56px 56px, 56px 56px, auto;
   color: var(--fg);
   font-family: var(--font-sans);
   font-feature-settings: "cv11", "ss01", "kern";
@@ -119,24 +121,6 @@ body {
   width: 100%;
   max-width: 100%;
   overflow-x: clip;
-}
-
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: -1;
-  background:
-    repeating-linear-gradient(
-      0deg,
-      rgba(17, 18, 20, 0.016) 0,
-      rgba(17, 18, 20, 0.016) 1px,
-      transparent 1px,
-      transparent 12px
-    );
-  opacity: 0.26;
-  animation: board-drift 24s linear infinite;
 }
 
 ::selection {
@@ -245,11 +229,6 @@ main {
 .site-footer,
 main {
   max-width: 100vw;
-}
-
-@keyframes board-drift {
-  from { transform: translateY(0); }
-  to { transform: translateY(36px); }
 }
 
 @keyframes rise-in {
@@ -457,10 +436,11 @@ main.is-wide {
 }
 
 .hero h1 {
-  font-size: clamp(2.35rem, 12vw, 4.35rem);
-  letter-spacing: 0;
-  font-weight: 760;
-  line-height: 1.05;
+  font-family: var(--font-serif);
+  font-size: clamp(2.5rem, 12vw, 4.5rem);
+  letter-spacing: -0.015em;
+  font-weight: 600;
+  line-height: 1.02;
   margin-bottom: var(--s-4);
 }
 
@@ -506,14 +486,12 @@ main.is-wide {
 
 /* current-focus side panel */
 .focus-panel {
+  position: relative;
+  overflow: hidden;
   border: 1px solid rgba(25, 26, 29, 0.10);
   border-radius: var(--r-md);
   padding: var(--s-5);
-  background:
-    linear-gradient(rgba(247, 246, 242, 0.055) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(247, 246, 242, 0.045) 1px, transparent 1px),
-    var(--panel);
-  background-size: 22px 22px;
+  background: var(--panel);
   font-size: 0.9rem;
   line-height: 1.5;
   box-shadow: var(--shadow-soft);
@@ -521,6 +499,16 @@ main.is-wide {
   transition: border-color 0.18s ease, transform 0.18s ease;
   min-width: 0;
   max-width: 100%;
+}
+
+.focus-panel::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
 }
 
 .focus-panel:hover {
@@ -727,10 +715,7 @@ main.is-wide {
 
 .card-featured {
   padding: var(--s-6);
-  background:
-    linear-gradient(rgba(17, 18, 20, 0.032) 1px, transparent 1px),
-    rgba(255, 255, 255, 0.86);
-  background-size: 28px 28px;
+  background: rgba(255, 255, 255, 0.86);
   border-color: rgba(17, 18, 20, 0.18);
   border-width: 1px;
 }
@@ -1145,8 +1130,10 @@ main.is-wide {
 }
 
 .page-header h1 {
+  font-family: var(--font-serif);
   font-size: clamp(2.1rem, 5vw, 3.2rem);
-  letter-spacing: 0;
+  letter-spacing: -0.015em;
+  font-weight: 600;
   margin-bottom: var(--s-2);
 }
 
@@ -1297,9 +1284,6 @@ main.is-wide {
 /* ---------- responsive ---------- */
 
 @media (max-width: 560px) {
-  body {
-    background-size: 38px 38px, 38px 38px, auto;
-  }
   main {
     padding: var(--s-6) var(--s-4) var(--s-7);
     width: auto;
