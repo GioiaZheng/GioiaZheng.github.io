@@ -18,15 +18,20 @@ const {
 const canonical = new URL(Astro.url.pathname, Astro.site).toString();
 const mainClass =
   width === "text" ? "is-text" : width === "wide" ? "is-wide" : "";
+// In dev, Astro/Vite inject styles and HMR over inline <style> and a
+// websocket; a strict style-src/connect-src blocks them and the page renders
+// unstyled. Relax only in dev — the production build emits external CSS files
+// and keeps the strict policy below.
+const isDev = import.meta.env.DEV;
 const csp = [
   "default-src 'self'",
   "base-uri 'self'",
   "object-src 'none'",
-  "script-src 'self'",
-  "style-src 'self'",
+  isDev ? "script-src 'self' 'unsafe-inline'" : "script-src 'self'",
+  isDev ? "style-src 'self' 'unsafe-inline'" : "style-src 'self'",
   "img-src 'self' data:",
   "font-src 'self'",
-  "connect-src 'self'",
+  isDev ? "connect-src 'self' ws:" : "connect-src 'self'",
   "form-action 'none'",
   "upgrade-insecure-requests",
 ].join("; ");
