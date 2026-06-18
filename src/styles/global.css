@@ -292,6 +292,12 @@ main.is-wide {
   background: var(--accent);
   border-radius: 50%;
   box-shadow: 0 0 0 3px var(--accent-soft);
+  animation: dot-pulse 2.6s ease-in-out infinite;
+}
+
+@keyframes dot-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(157, 59, 88, 0.45); }
+  60% { box-shadow: 0 0 0 5px rgba(157, 59, 88, 0); }
 }
 
 .site-nav {
@@ -326,8 +332,12 @@ main.is-wide {
 
 .site-footer {
   margin-top: var(--s-9);
-  background: #111820;
+  background:
+    radial-gradient(rgba(247, 246, 242, 0.045) 1px, transparent 1.4px),
+    #111820;
+  background-size: 16px 16px;
   color: #f7f6f2;
+  border-top: 2px solid var(--accent);
 }
 
 .site-footer-inner {
@@ -349,8 +359,12 @@ main.is-wide {
 }
 
 .site-footer-title {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   color: #ffffff;
-  font-weight: 700;
+  font-weight: 600;
   margin-bottom: var(--s-3);
 }
 
@@ -694,13 +708,28 @@ main.is-wide {
 /* ---------- landing sections (home) ---------- */
 
 .section {
+  position: relative;
   padding: var(--s-7) 0;
   border-top: 1px solid var(--line);
+}
+
+.section::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 2.5rem;
+  height: 2px;
+  background: var(--accent);
 }
 
 .section:first-of-type {
   border-top: 0;
   padding-top: var(--s-4);
+}
+
+.section:first-of-type::before {
+  display: none;
 }
 
 .section + .section {
@@ -914,7 +943,8 @@ main.is-wide {
   flex-wrap: wrap;
   align-items: center;
   gap: var(--s-2) var(--s-3);
-  font-size: 0.82rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
   color: var(--muted);
   min-width: 0;
 }
@@ -1207,9 +1237,16 @@ main.is-wide {
 /* ---------- prose page header (writing / project detail crumb) ---------- */
 
 .page-crumb {
-  font-size: 0.85rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
   color: var(--muted);
   margin-bottom: var(--s-5);
+}
+
+.page-crumb::before {
+  content: "← ";
+  color: var(--accent);
 }
 
 .page-crumb a {
@@ -1244,8 +1281,9 @@ main.is-wide {
 }
 
 .page-meta {
-  margin-top: var(--s-3);
-  font-size: 0.82rem;
+  margin-top: var(--s-4);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
   color: var(--muted);
   display: flex;
   flex-wrap: wrap;
@@ -1292,6 +1330,17 @@ main.is-wide {
   color: var(--fg-soft);
 }
 
+/* keep running prose readable inside the wide container; structural blocks
+   (summary-grid, metric-grid, kv, callout) still span the full width */
+.prose p,
+.prose ul,
+.prose ol,
+.prose h2,
+.prose h3,
+.prose blockquote {
+  max-width: 46rem;
+}
+
 .prose blockquote {
   border-left: 3px solid var(--line-strong);
   margin: var(--s-4) 0;
@@ -1312,6 +1361,7 @@ main.is-wide {
   font-size: 1.1rem;
   line-height: 1.8;
   color: var(--fg-soft);
+  max-width: 46rem;
 }
 
 .essay > p {
