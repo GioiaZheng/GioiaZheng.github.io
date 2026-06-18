@@ -1330,16 +1330,6 @@ main.is-wide {
   color: var(--fg-soft);
 }
 
-/* keep running prose readable inside the wide container; structural blocks
-   (summary-grid, metric-grid, kv, callout) still span the full width */
-.prose p,
-.prose ul,
-.prose ol,
-.prose h2,
-.prose h3,
-.prose blockquote {
-  max-width: 46rem;
-}
 
 .prose blockquote {
   border-left: 3px solid var(--line-strong);
@@ -1361,7 +1351,6 @@ main.is-wide {
   font-size: 1.1rem;
   line-height: 1.8;
   color: var(--fg-soft);
-  max-width: 46rem;
 }
 
 .essay > p {
