@@ -23,6 +23,7 @@ const mainClass =
 // unstyled. Relax only in dev — the production build emits external CSS files
 // and keeps the strict policy below.
 const isDev = import.meta.env.DEV;
+const devConnect = "ws://127.0.0.1:* ws://localhost:*";
 const csp = [
   "default-src 'self'",
   "base-uri 'self'",
@@ -31,7 +32,7 @@ const csp = [
   isDev ? "style-src 'self' 'unsafe-inline'" : "style-src 'self'",
   "img-src 'self' data:",
   "font-src 'self'",
-  isDev ? "connect-src 'self' ws:" : "connect-src 'self'",
+  isDev ? `connect-src 'self' ${devConnect}` : "connect-src 'self'",
   "form-action 'none'",
   "upgrade-insecure-requests",
 ].join("; ");

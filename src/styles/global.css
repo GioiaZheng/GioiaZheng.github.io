@@ -1234,6 +1234,39 @@ main.is-wide {
   color: var(--muted);
 }
 
+.note-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--s-4);
+}
+
+.note-link {
+  display: block;
+  padding: 1rem 2rem;
+  border: 1px solid rgba(17, 18, 20, 0.08);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.56);
+  color: var(--fg);
+  font-family: var(--font-mono);
+  font-size: 0.96rem;
+  line-height: 1.45;
+  text-decoration: none;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.64) inset;
+  transition: border-color 0.16s, background 0.16s, transform 0.16s, color 0.16s;
+}
+
+.note-link:hover {
+  border-color: rgba(143, 95, 107, 0.28);
+  background: rgba(255, 255, 255, 0.82);
+  color: var(--accent);
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+
+.note-link.is-draft {
+  color: var(--muted);
+}
+
 /* ---------- prose page header (writing / project detail crumb) ---------- */
 
 .page-crumb {

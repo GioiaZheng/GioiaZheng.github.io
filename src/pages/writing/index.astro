@@ -4,12 +4,15 @@ import Base from "../../layouts/Base.astro";
 import { entrySlug } from "../../lib/content";
 
 const all = await getCollection("writing");
+const byOrderThenDate = (a, b) =>
+  a.data.order - b.data.order ||
+  (b.data.date ?? "").localeCompare(a.data.date ?? "");
 const published = all
   .filter((w) => w.data.status === "published")
-  .sort((a, b) => (b.data.date ?? "").localeCompare(a.data.date ?? ""));
+  .sort(byOrderThenDate);
 const drafts = all
   .filter((w) => w.data.status === "draft")
-  .sort((a, b) => a.data.order - b.data.order);
+  .sort(byOrderThenDate);
 ---
 
 <Base
@@ -32,17 +35,10 @@ const drafts = all
           <span>Published</span>
           <span>{published.length} note{published.length > 1 ? "s" : ""}</span>
         </div>
-        <div class="card-grid">
+        <div class="note-list">
           {published.map((w) => (
-            <a href={`/writing/${entrySlug(w)}/`} class="card">
-              <div class="card-head">
-                <div class="card-title">{w.data.title}</div>
-                {w.data.date && (
-                  <span class="badge" data-status="published">{w.data.date}</span>
-                )}
-              </div>
-              <p class="card-summary">{w.data.summary}</p>
-              <div class="card-action">Read note</div>
+            <a href={`/writing/${entrySlug(w)}/`} class="note-link">
+              {w.data.title}
             </a>
           ))}
         </div>
@@ -56,14 +52,10 @@ const drafts = all
         <div class="kicker">
           <span>Drafts in progress</span>
         </div>
-        <div class="card-grid">
+        <div class="note-list">
           {drafts.map((w) => (
-            <a href={`/writing/${entrySlug(w)}/`} class="card">
-              <div class="card-head">
-                <div class="card-title">{w.data.title}</div>
-                <span class="badge" data-status="draft">draft</span>
-              </div>
-              <p class="card-summary">{w.data.summary}</p>
+            <a href={`/writing/${entrySlug(w)}/`} class="note-link is-draft">
+              {w.data.title}
             </a>
           ))}
         </div>

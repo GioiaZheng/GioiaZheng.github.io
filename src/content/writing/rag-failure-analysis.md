@@ -1,9 +1,9 @@
 ---
-title: "Failure analysis in retrieval-augmented generation"
-summary: A single aggregate score is the wrong unit for evaluating a RAG pipeline. Reporting per-category failure rates makes regressions visible that aggregates hide.
+title: "Failure Taxonomy for RAG Systems"
+summary: "When a RAG score changes, I want to know which layer moved: retrieval gap, rank inversion, evidence under-use, fabrication, or metric artifact."
 date: "2026-05-28"
 status: published
-order: 1
+order: 2
 ---
 
 A retrieve &rarr; rerank &rarr; generate pipeline can fail at four roughly disjoint points. Most evaluations roll them up into one score. That makes pipeline-level regressions almost invisible: an improvement at one stage that worsens another can wash out completely in the average, or &mdash; worse &mdash; appear as a net win while the actual error mix shifts in a damaging direction.
@@ -59,4 +59,4 @@ This is a methodological argument, not a results paper. The concrete msmarco-gen
 
 ---
 
-_Status: draft. References will be added when the next experimental round closes; the Cuconasu et al. (SIGIR 2024) and the SummaC / MENLI line on NLI-as-faithfulness are the obvious anchors._
+_Status: working note. References will be expanded as the next experimental round closes; the Cuconasu et al. hard-distractor result and the SummaC / MENLI line on NLI-as-faithfulness are the obvious anchors._
