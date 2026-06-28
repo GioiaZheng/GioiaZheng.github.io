@@ -5,7 +5,7 @@ technical site. Static, content-first, no analytics, no trackers.
 
 ## Stack
 
-- [Astro](https://astro.build/) v6, content collections + Markdown
+- [Astro](https://astro.build/) v7, content collections + Markdown
 - Vanilla CSS, no UI framework
 - Deployed to GitHub Pages via the official `actions/deploy-pages` action
 
