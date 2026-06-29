@@ -3,6 +3,7 @@ title: msmarco-genqa
 summary: Reproducible retrieve → rerank → generate pipeline on MS MARCO with paired-bootstrap evaluation and a manifest-enforced reproducibility contract.
 order: 1
 featured: true
+academic: true
 status: active
 last_updated: "2026-05-29"
 repo: https://github.com/GioiaZheng/msmarco-genqa

@@ -52,6 +52,7 @@
   /* radius */
   --r-sm: 3px;
   --r-md: 6px;
+  --site-header-height: 4.0625rem;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -101,6 +102,7 @@ html {
 
 body {
   margin: 0;
+  padding-top: var(--site-header-height);
   background:
     radial-gradient(1200px 560px at 6% -12%, rgba(157, 59, 88, 0.08), transparent 58%),
     radial-gradient(1000px 620px at 100% -6%, rgba(60, 94, 80, 0.06), transparent 55%),
@@ -255,9 +257,10 @@ main.is-wide {
 .site-header {
   border-bottom: 1px solid var(--line);
   background: rgba(251, 250, 247, 0.88);
-  position: sticky;
-  top: 0;
-  z-index: 10;
+  position: fixed;
+  inset: 0 0 auto;
+  width: 100%;
+  z-index: 100;
   backdrop-filter: blur(14px);
 }
 
@@ -1456,6 +1459,9 @@ main.is-wide {
 /* ---------- responsive ---------- */
 
 @media (max-width: 560px) {
+  :root {
+    --site-header-height: 5.5rem;
+  }
   main {
     padding: var(--s-6) var(--s-4) var(--s-7);
     width: auto;

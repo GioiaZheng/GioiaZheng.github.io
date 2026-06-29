@@ -8,7 +8,7 @@ const all = (await getCollection("projects")).sort(
   (a, b) => a.data.order - b.data.order,
 );
 const featured = all.filter((p) => p.data.featured);
-const other = all.filter((p) => !p.data.featured);
+const related = all.filter((p) => !p.data.featured && p.data.academic);
 ---
 
 <Base
@@ -19,8 +19,8 @@ const other = all.filter((p) => !p.data.featured);
   <div class="page-header">
     <h1>Projects</h1>
     <p class="page-tagline">
-      Selected systems and implementation projects, with emphasis on
-      reproducibility, evaluation, and technical evidence.
+      Research artifacts and controlled experiments in retrieval, grounded
+      generation, evaluation, and reproducible machine learning.
     </p>
   </div>
 
@@ -47,14 +47,14 @@ const other = all.filter((p) => !p.data.featured);
   }
 
   {
-    other.length > 0 && (
+    related.length > 0 && (
       <section class="section">
         <div class="kicker">
-          <span>Other work</span>
-          <span>{other.length} entries</span>
+          <span>Related research</span>
+          <span>{related.length} project{related.length > 1 ? "s" : ""}</span>
         </div>
         <div class="card-grid two-col">
-          {other.map((p) => (
+          {related.map((p) => (
             <ProjectCard
               href={`/projects/${entrySlug(p)}/`}
               title={p.data.title}
@@ -65,12 +65,6 @@ const other = all.filter((p) => !p.data.featured);
             />
           ))}
         </div>
-        <p class="section-caption">
-          <span>
-            Older systems and coursework &mdash; listed for completeness, not as
-            representative of current research focus.
-          </span>
-        </p>
       </section>
     )
   }
