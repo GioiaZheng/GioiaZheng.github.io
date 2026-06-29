@@ -8,6 +8,7 @@ const projects = defineCollection({
     summary: z.string(),
     order: z.number().default(99),
     featured: z.boolean().default(false),
+    academic: z.boolean().default(false),
     status: z
       .enum(["active", "maintained", "experimental", "archived"])
       .default("active"),

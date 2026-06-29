@@ -15,27 +15,28 @@ const recent = writing[0];
 ---
 
 <Base
-  title="Gioia Zheng — retrieval, evaluation, AI infrastructure"
-  description="B.Sc. student in Applied Computer Science and Artificial Intelligence building reproducible retrieval and evaluation systems for large-scale QA pipelines."
+  title="Gioia Zheng — information retrieval and RAG evaluation"
+  description="B.Sc. student in Applied Computer Science and Artificial Intelligence studying retrieval-augmented generation, evaluation methodology, and reproducible ML."
   width="wide"
 >
   <section class="hero">
     <div class="hero-text">
-      <p class="hero-eyebrow">Retrieval systems · evaluation · automation</p>
+      <p class="hero-eyebrow">Information retrieval · RAG evaluation · reproducible ML</p>
       <h1>Gioia Zheng</h1>
       <p class="hero-tagline">
-        Information Retrieval &middot; RAG Evaluation &middot; Reproducible ML &middot; AI Infrastructure
+        Information Retrieval &middot; RAG Evaluation &middot; Grounding &middot; Reproducible ML
       </p>
       <p class="hero-positioning">
-        B.Sc. student at Sapienza University of Rome building reproducible
-        retrieve&nbsp;→&nbsp;rerank&nbsp;→&nbsp;generate systems and the
-        evaluation machinery around large-scale QA pipelines.
+        I study where retrieval-augmented generation fails, how retrieval and
+        generation errors interact, and how evaluation can make those failures
+        measurable. I build reproducible systems to turn these questions into
+        testable evidence.
       </p>
       <div class="hero-actions">
         {
           anchor && (
             <a href={`/projects/${entrySlug(anchor)}/`} class="btn btn-primary">
-              Featured project
+              Featured research
             </a>
           )
         }
@@ -44,13 +45,13 @@ const recent = writing[0];
     </div>
 
     <aside class="focus-panel" aria-label="Current focus">
-      <div class="focus-panel-label">Currently</div>
+      <div class="focus-panel-label">Research focus</div>
 
       <div class="focus-item">
-        <div class="focus-item-head">Focus</div>
+        <div class="focus-item-head">Questions</div>
         <div class="focus-item-body">
-          Research-engineering problems at the intersection of information
-          retrieval, evaluation methodology, and AI infrastructure.
+          When does better retrieval improve grounded generation, and when do
+          aggregate metrics hide important failure modes?
         </div>
       </div>
 
@@ -58,17 +59,17 @@ const recent = writing[0];
         <div class="focus-item-head">Methods</div>
         <div class="focus-item-body">
           BM25, dense retrieval, FAISS, cross-encoder reranking, T5 generation,
-          paired evaluation, reproducibility manifests, WordPress, and n8n
-          automation.
+          controlled ablations, paired bootstrap, grounding evaluation, and
+          reproducibility manifests.
         </div>
       </div>
 
       <div class="focus-item">
-        <div class="focus-item-head">Experience</div>
+        <div class="focus-item-head">Current study</div>
         <div class="focus-item-body">
-          Production PHP / WordPress development at Idearia, automation
-          workflows with n8n, and retrieval-augmented QA experimentation over
-          MS MARCO.
+          Measuring whether retrieval gains reliably translate into better
+          grounded answers on MS MARCO, with confidence-bounded comparisons and
+          a versioned failure taxonomy.
         </div>
       </div>
     </aside>
@@ -85,7 +86,7 @@ const recent = writing[0];
     anchor && (
       <section class="section">
         <div class="kicker">
-          <span>Featured project</span>
+          <span>Featured research</span>
           <a href="/projects/">All projects</a>
         </div>
 

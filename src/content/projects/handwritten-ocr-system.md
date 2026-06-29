@@ -3,6 +3,7 @@ title: handwritten-ocr-system
 summary: End-to-end handwritten OCR with CNN + BiLSTM + CTC on the IAM dataset.
 order: 6
 featured: false
+academic: true
 status: experimental
 last_updated: "2026-05-27"
 repo: https://github.com/GioiaZheng/handwritten-ocr-system
