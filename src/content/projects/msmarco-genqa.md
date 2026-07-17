@@ -5,7 +5,7 @@ order: 1
 featured: true
 academic: true
 status: active
-last_updated: "2026-05-29"
+last_updated: "2026-07-17"
 repo: https://github.com/GioiaZheng/msmarco-genqa
 tags: ["retrieval", "rag", "evaluation", "reproducibility"]
 ---
@@ -20,7 +20,7 @@ tags: ["retrieval", "rag", "evaluation", "reproducibility"]
   <dt>Reproducibility</dt>
   <dd>Schema-v2 manifest contract; <code>make reproduce-baseline</code> from clean clone</dd>
   <dt>Status</dt>
-  <dd>Active &mdash; CPU-only, single-machine, 371 tests passing</dd>
+  <dd>Active &mdash; CPU-only, single-machine, CI-backed test suite</dd>
 </dl>
 
 ## Problem
