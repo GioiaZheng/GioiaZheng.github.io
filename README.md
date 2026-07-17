@@ -1,5 +1,7 @@
 # gioiazheng.github.io
 
+[![Deploy](https://github.com/GioiaZheng/GioiaZheng.github.io/actions/workflows/deploy.yml/badge.svg)](https://github.com/GioiaZheng/GioiaZheng.github.io/actions/workflows/deploy.yml)
+
 Source for [gioiazheng.github.io](https://gioiazheng.github.io/) — personal
 technical site. Static, content-first, no analytics, no trackers.
 
