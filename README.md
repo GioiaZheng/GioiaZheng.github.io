@@ -33,7 +33,7 @@ Local: http://localhost:4321/
 
 Content lives under [`src/content/`](src/content/) as Markdown with
 frontmatter — the schema is in
-[`src/content/config.ts`](src/content/config.ts).
+[`src/content.config.ts`](src/content.config.ts).
 
 - **Projects** → `src/content/projects/<slug>.md`. Required fields:
   `title`, `summary`, `order`, `status`, optional `repo` / `featured` / `tags`.
@@ -56,8 +56,8 @@ src/
     writing/index.astro        # writing list
     writing/[slug].astro       # one note per markdown file
     contact.astro
+  content.config.ts            # collection schemas
   content/
-    config.ts                  # collection schemas
     projects/*.md
     writing/*.md
   styles/global.css            # all site styles
