@@ -5,7 +5,7 @@ order: 1
 featured: true
 academic: true
 status: active
-last_updated: "2026-07-17"
+last_updated: "2026-07-18"
 repo: https://github.com/GioiaZheng/msmarco-genqa
 tags: ["retrieval", "rag", "evaluation", "reproducibility"]
 ---
@@ -17,6 +17,8 @@ tags: ["retrieval", "rag", "evaluation", "reproducibility"]
   <dd>MS MARCO passage, 8.8 M docs, 6 980 paired queries (dev/small)</dd>
   <dt>Main result</dt>
   <dd>Reranking lifts Token-F1 from 0.197 to 0.368 (Δ&nbsp;+0.171, 95 % CI [+0.163, +0.178], paired bootstrap)</dd>
+  <dt>External retrieval</dt>
+  <dd>TREC-DL 2019/2020 full-corpus BM25 + cross-encoder benchmark, independently cross-checked</dd>
   <dt>Reproducibility</dt>
   <dd>Schema-v2 manifest contract; <code>make reproduce-baseline</code> from clean clone</dd>
   <dt>Status</dt>
@@ -82,6 +84,15 @@ Retrieval-only, BM25 on the full 8.8 M-passage corpus (6 980 queries):
   </div>
 </div>
 
+## Evidence status
+
+<dl class="kv">
+  <dt>Validated result</dt><dd>On MS MARCO <code>dev/small</code>, reranked dense top-3 improves T5-small surface metrics over BM25 top-3 on 6 980 paired queries. The dense and reranking stages use a documented 50 000-passage qrels-anchored pool, not a full-corpus dense first stage.</dd>
+  <dt>Validated external retrieval</dt><dd>On all 43 TREC-DL 2019 and 54 TREC-DL 2020 judged topics, cross-encoder reranking improves MRR@10 and graded nDCG@10 over full-corpus BM25. The protocol and checked artifact are in the repository's <a href="https://github.com/GioiaZheng/msmarco-genqa/blob/main/docs/trec_dl_external_validity.md">TREC-DL report</a>.</dd>
+  <dt>Implemented, pending evaluation</dt><dd>The T5-base generator-capacity sweep and configurable alternative-generator paths exist, but no T5-base or FLAN-T5 headline result is claimed without a complete versioned run.</dd>
+  <dt>Not established</dt><dd>The current artifacts do not show that TREC-DL retrieval gains transfer to generation, that dense retrieval beats BM25 under a fair full-corpus condition, or that the findings generalize beyond MS MARCO passages.</dd>
+</dl>
+
 ## Technical components
 
 <dl class="kv">
@@ -113,13 +124,13 @@ make reproduce-baseline
   <ul>
     <li>Dense + reranker numbers come from a 50 000-passage <strong>qrels-anchored sample</strong>, not the full corpus. The sample is anchored on relevant documents, which inflates recall-based metrics. Every <code>metrics.json</code> carries a <code>(sampled)</code> caveat block to prevent the numbers being read as deep-judgment results.</li>
     <li>CPU-only, single-machine by design &mdash; the target is laptop reproducibility, not GPU throughput.</li>
-    <li>Deep-judgment external validity on TREC-DL 2019 / 2020 is the next experimental milestone, not a completed claim.</li>
+    <li>TREC-DL 2019 / 2020 now provides deep-judgment evidence for full-corpus BM25 plus cross-encoder retrieval only. It is not generation evidence and does not include a full-corpus dense first stage.</li>
   </ul>
 </aside>
 
 ## Current status
 
-Active. Schema-v2 manifest contract closed in the reproducibility-protocol release, then extended with per-task NLI profile fields (backbone, score formula, threshold, label-index map, premise→hypothesis direction). The upcoming `research/metric-robustness` round runs the full factorial &mdash; multiple NLI backbones × score formulas × thresholds × seeds &mdash; with paired bootstrap CIs, a length covariate, and a failure taxonomy as a versioned data product.
+Active. The paired MS MARCO generation comparison and the TREC-DL 2019/2020 BM25-plus-reranker benchmark are completed, versioned evidence. The T5-base capacity study and broader generator comparisons remain implemented or planned work; they are not reported as empirical findings until their artifacts land.
 
 ## Repo
 
