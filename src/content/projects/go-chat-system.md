@@ -1,15 +1,15 @@
 ---
 title: go-chat-system
-summary: Coursework full-stack chat baseline — Go REST backend, embedded Vue UI, OpenAPI contract.
+summary: WASA course project built from the Fantastic Coffee starter — Go chat API, Vue UI, and SQLite.
 order: 7
 featured: false
 status: archived
-last_updated: "2026-05-27"
+last_updated: "2026-07-18"
 repo: https://github.com/GioiaZheng/go-chat-system
 tags: ["backend", "go", "rest", "sqlite"]
 ---
 
-Coursework chat application implemented end-to-end as a single-binary Go service. Scope is deliberately a homework baseline, not a production system.
+Coursework chat application built from the WASA *Fantastic Coffee (decaffeinated)* starter and delivered as a single-binary Go service. Scope is deliberately a course project, not a production system.
 
 ## Problem
 
@@ -17,7 +17,11 @@ The course brief required a self-contained chat service with REST endpoints, per
 
 ## What I built
 
-A Go HTTP service exposing authenticated REST endpoints for users, rooms, and messages, backed by SQLite for durable storage. The Vue frontend is built and embedded into the binary so the service ships as a single executable.
+Starting from the course scaffold, I implemented and extended the chat-specific user, one-to-one and group conversation, message, reply, forward, and deletion workflows. The submitted application connects those flows to SQLite, an OpenAPI contract, and a Vue frontend that can be embedded into the Go binary.
+
+## Attribution
+
+The starter supplied the initial full-stack project scaffold and WASA build conventions. The public repository begins with a full project upload rather than an untouched starter snapshot, so it cannot support file-by-file authorship claims. Later repository history separately records API and authorization tests, CI, security scans and documentation, dependency maintenance, and SQLite connection hardening.
 
 ## Technical components
 
@@ -32,12 +36,13 @@ A Go HTTP service exposing authenticated REST endpoints for users, rooms, and me
 
 ## Evidence / outputs
 
-- Working single-binary build that boots, serves the embedded UI, and exercises every API endpoint end-to-end.
+- Working single-binary build with repository tests covering key user, conversation, message, authorization, and storage paths.
 - OpenAPI document under [`doc/`](https://github.com/GioiaZheng/go-chat-system/tree/main/doc) as the contract source-of-truth.
+- Feature- and phase-level attribution in the repository [`README`](https://github.com/GioiaZheng/go-chat-system#course-context-and-attribution), including links to the later maintenance commits.
 
 ## Current status
 
-Archived. The course grading goal was met; not actively expanded.
+The course feature scope is closed. Repository maintenance continues for tests, dependencies, security checks, and correctness, but the project is not being expanded into a production messaging service.
 
 ## Limitations
 
