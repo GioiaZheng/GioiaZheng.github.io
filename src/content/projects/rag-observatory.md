@@ -1,11 +1,11 @@
 ---
 title: rag-observatory
-summary: Local-first, trace-based observability and failure analysis for inspectable and reproducible RAG runs.
+summary: Research prototype for trace-based RAG observability and failure analysis.
 order: 2
 featured: true
 academic: true
 status: active
-last_updated: "2026-07-17"
+last_updated: "2026-07-18"
 repo: https://github.com/GioiaZheng/rag-observatory
 tags: ["rag", "observability", "failure-analysis", "reproducibility"]
 ---
@@ -18,7 +18,7 @@ tags: ["rag", "observability", "failure-analysis", "reproducibility"]
   <dt>Outputs</dt>
   <dd>Validated traces, failure labels, comparisons, benchmark summaries, and inspectable Markdown / HTML reports</dd>
   <dt>Status</dt>
-  <dd>Active &mdash; core schema and reporting loop implemented; interfaces remain early</dd>
+  <dd>Research prototype &mdash; core schema and reporting loop implemented; evidence remains primarily synthetic</dd>
 </dl>
 
 ## Problem
@@ -27,7 +27,7 @@ A single aggregate score rarely explains why a RAG system failed. The source may
 
 ## What I built
 
-A local-first research-engineering toolkit that turns RAG execution traces into inspectable artifacts. It validates trace structure, applies manual or heuristic failure labels, compares runs, and produces reports that preserve the evidence and provenance behind each conclusion.
+A local-first research prototype that turns RAG execution traces into inspectable artifacts. It validates trace structure, applies manual or heuristic failure labels, compares runs, and produces reports that preserve the evidence and provenance behind each conclusion.
 
 The project is deliberately not another RAG pipeline or chatbot framework. Its role is the diagnostic layer around experiments: capture what happened, make failures reviewable, and keep comparisons reproducible.
 
@@ -57,13 +57,13 @@ The workflow produces normalized traces, human-readable reports, run comparisons
   <ul>
     <li>The checked-in workflow is intentionally small and synthetic; it demonstrates the trace and reporting contract, not a dataset-scale benchmark claim.</li>
     <li>Heuristic labels support inspection and iteration, but they are not a learned failure classifier.</li>
-    <li>The project is a research toolkit, not yet a production telemetry backend or hosted dashboard.</li>
+    <li>The project is a research prototype, not yet a production telemetry backend or hosted dashboard.</li>
   </ul>
 </aside>
 
 ## Current status
 
-Active. The core trace-validation, reporting, comparison, and evaluator-protocol loop is in place. The next milestone is broader reviewed trace coverage from real experiments, followed by stronger agreement and robustness analysis for the failure taxonomy.
+Research prototype. The core trace-validation, reporting, comparison, and evaluator-protocol loop is in place. The next milestone is broader reviewed trace coverage from real experiments, followed by stronger agreement and robustness analysis for the failure taxonomy.
 
 ## Repo
 
