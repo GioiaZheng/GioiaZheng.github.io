@@ -5,7 +5,7 @@ order: 2
 featured: true
 academic: true
 status: active
-last_updated: "2026-07-18"
+last_updated: "2026-07-22"
 repo: https://github.com/GioiaZheng/rag-observatory
 tags: ["rag", "observability", "failure-analysis", "reproducibility"]
 ---
@@ -65,6 +65,8 @@ The workflow produces normalized traces, human-readable reports, run comparisons
 
 Research prototype. The core trace-validation, reporting, comparison, and evaluator-protocol loop is in place. The next milestone is broader reviewed trace coverage from real experiments, followed by stronger agreement and robustness analysis for the failure taxonomy.
 
-## Repo
+## Public artifacts
 
-[github.com/GioiaZheng/rag-observatory](https://github.com/GioiaZheng/rag-observatory)
+- [Source repository](https://github.com/GioiaZheng/rag-observatory)
+- [Interactive Space](https://huggingface.co/spaces/GioiaZheng/rag-observatory)
+- [Toy trace dataset](https://huggingface.co/datasets/GioiaZheng/rag-observatory-toy-traces)
