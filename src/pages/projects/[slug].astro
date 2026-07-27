@@ -30,6 +30,7 @@ const { Content } = await render(entry);
       {entry.data.tags.length > 0 && <span>{entry.data.tags.join(" · ")}</span>}
       {entry.data.last_updated && <span>· updated {entry.data.last_updated}</span>}
       {entry.data.repo && <span>· <a href={entry.data.repo}>Repository</a></span>}
+      {entry.data.demo && <span>· <a href={entry.data.demo}>Live demo</a></span>}
     </div>
   </header>
 

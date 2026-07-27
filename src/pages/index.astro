@@ -6,7 +6,9 @@ import { entrySlug } from "../lib/content";
 const featured = (await getCollection("projects"))
   .filter((p) => p.data.featured)
   .sort((a, b) => a.data.order - b.data.order);
-const anchor = featured[0];
+const anchor =
+  featured.find((project) => entrySlug(project) === "rag-observatory") ??
+  featured[0];
 
 const writing = (await getCollection("writing"))
   .filter((w) => w.data.status === "published")
@@ -36,10 +38,11 @@ const recent = writing[0];
         {
           anchor && (
             <a href={`/projects/${entrySlug(anchor)}/`} class="btn btn-primary">
-              Featured research
+              Featured research project
             </a>
           )
         }
+        <a href="/materials/" class="btn">Research materials</a>
         <a href="/contact/" class="btn">Contact me</a>
       </div>
     </div>
@@ -67,9 +70,8 @@ const recent = writing[0];
       <div class="focus-item">
         <div class="focus-item-head">Current study</div>
         <div class="focus-item-body">
-          Measuring whether retrieval gains reliably translate into better
-          grounded answers on MS MARCO, with confidence-bounded comparisons and
-          a versioned failure taxonomy.
+          Testing how retrieval depth and chunk boundaries change evidence
+          coverage and failure labels on public SciFact traces.
         </div>
       </div>
     </aside>
@@ -86,7 +88,7 @@ const recent = writing[0];
     anchor && (
       <section class="section">
         <div class="kicker">
-          <span>Featured research</span>
+          <span>Featured research project</span>
           <a href="/projects/">All projects</a>
         </div>
 
@@ -107,16 +109,16 @@ const recent = writing[0];
 
           <div class="card-metrics" aria-label="Headline numbers">
             <div class="card-metric-row">
-              <span class="card-metric-label">Token-F1</span>
-              <span class="card-metric-value">Δ +0.171</span>
+              <span class="card-metric-label">Real traces</span>
+              <span class="card-metric-value">40 SciFact</span>
             </div>
             <div class="card-metric-row">
-              <span class="card-metric-label">95% CI</span>
-              <span class="card-metric-value">[+0.163, +0.178]</span>
+              <span class="card-metric-label">Controlled queries</span>
+              <span class="card-metric-value">20 fixed</span>
             </div>
             <div class="card-metric-row">
-              <span class="card-metric-label">Queries</span>
-              <span class="card-metric-value">6,980 paired</span>
+              <span class="card-metric-label">Automated tests</span>
+              <span class="card-metric-value">107</span>
             </div>
           </div>
 

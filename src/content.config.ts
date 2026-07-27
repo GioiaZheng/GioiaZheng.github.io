@@ -14,6 +14,7 @@ const projects = defineCollection({
       .default("active"),
     last_updated: z.string().optional(),
     repo: z.string().url().optional(),
+    demo: z.string().url().optional(),
     tags: z.array(z.string()).default([]),
   }),
 });
