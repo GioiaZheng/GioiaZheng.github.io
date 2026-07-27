@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import { createHash } from "node:crypto";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
 
@@ -16,6 +17,30 @@ const {
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site).toString();
+const socialImage = new URL("/social-card.png", Astro.site).toString();
+const personJsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Gioia Zheng",
+  url: new URL("/", Astro.site).toString(),
+  sameAs: [
+    "https://github.com/GioiaZheng",
+    "https://www.linkedin.com/in/gioiazheng/",
+    "https://orcid.org/0009-0000-8212-4506",
+    "https://huggingface.co/GioiaZheng",
+  ],
+  affiliation: {
+    "@type": "CollegeOrUniversity",
+    name: "Sapienza University of Rome",
+  },
+  knowsAbout: [
+    "Information retrieval",
+    "Retrieval-augmented generation evaluation",
+    "Grounding evaluation",
+    "Reproducible machine learning",
+  ],
+});
+const jsonLdHash = createHash("sha256").update(personJsonLd).digest("base64");
 const mainClass =
   width === "text" ? "is-text" : width === "wide" ? "is-wide" : "";
 // In dev, Astro/Vite inject styles and HMR over inline <style> and a
@@ -28,7 +53,9 @@ const csp = [
   "default-src 'self'",
   "base-uri 'self'",
   "object-src 'none'",
-  isDev ? "script-src 'self' 'unsafe-inline'" : "script-src 'self'",
+  isDev
+    ? "script-src 'self' 'unsafe-inline'"
+    : `script-src 'self' 'sha256-${jsonLdHash}'`,
   isDev ? "style-src 'self' 'unsafe-inline'" : "style-src 'self'",
   "img-src 'self' data:",
   "font-src 'self'",
@@ -48,16 +75,27 @@ const csp = [
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <meta name="color-scheme" content="light dark" />
+    <meta name="color-scheme" content="light" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
-    <link rel="icon" href="data:," />
+    <meta property="og:site_name" content="Gioia Zheng" />
+    <meta property="og:image" content={socialImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Gioia Zheng — Information Retrieval, RAG Evaluation, Reproducible ML Systems" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImage} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <script type="application/ld+json" set:html={personJsonLd} />
   </head>
   <body>
+    <a href="#main-content" class="skip-link">Skip to content</a>
     <Nav />
-    <main class={mainClass}>
+    <main id="main-content" class={mainClass}>
       <slot />
     </main>
     <Footer />

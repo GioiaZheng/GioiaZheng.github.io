@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#fbfaf7"/>
+  <circle cx="92" cy="90" r="12" fill="#9d3b58"/>
+  <path d="M0 0h1200v8H0z" fill="#151814"/>
+  <path d="M72 502h1056" stroke="#d8d3c8" stroke-width="2"/>
+  <text x="72" y="238" fill="#111214" font-family="Georgia, 'Times New Roman', serif" font-size="88" font-weight="700">Gioia Zheng</text>
+  <text x="76" y="310" fill="#34312d" font-family="Arial, sans-serif" font-size="30" font-weight="600" letter-spacing="1">INFORMATION RETRIEVAL · RAG EVALUATION</text>
+  <text x="76" y="360" fill="#34312d" font-family="Arial, sans-serif" font-size="30" font-weight="600" letter-spacing="1">REPRODUCIBLE ML SYSTEMS</text>
+  <text x="76" y="555" fill="#686158" font-family="Consolas, monospace" font-size="24">gioiazheng.github.io</text>
+</svg>
