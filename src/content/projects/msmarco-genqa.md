@@ -5,7 +5,7 @@ order: 1
 featured: true
 academic: true
 status: active
-last_updated: "2026-07-18"
+last_updated: "2026-07-28"
 repo: https://github.com/GioiaZheng/msmarco-genqa
 tags: ["retrieval", "rag", "evaluation", "reproducibility"]
 ---
@@ -32,6 +32,19 @@ Surface generation metrics (Token-F1, ROUGE-L) on retrieve → rerank → genera
 ## What I built
 
 Four entry-point scripts under [`experiments/`](https://github.com/GioiaZheng/msmarco-genqa/tree/main/experiments) — one per pipeline stage — sharing a single source-of-truth config and writing a schema-versioned `manifest.json` next to every `metrics.json`. The contract is enforced at write time: a run that fails to capture the six required reproducibility fields cannot land an artifact.
+
+## Evidence map
+
+<dl class="summary-grid">
+  <dt>Research question</dt>
+  <dd>When do retrieval and reranking improvements transfer into better generated answers, and when are they bounded by missing first-stage candidates?</dd>
+  <dt>Key result</dt>
+  <dd>On MS MARCO <code>dev/small</code>, reranked dense top-3 improves T5-small Token-F1 from 0.1966 to 0.3677 across 6,980 paired queries (Δ +0.1711, 95% CI [+0.1632, +0.1789]). On BEIR NFCorpus and SciFact, cross-encoder reranking improves early ranking while Recall@100 stays fixed because the reranker only sees the BM25 top-100 candidate set.</dd>
+  <dt>What I did</dt>
+  <dd>Built retrieval, reranking, generation, paired-bootstrap evaluation, external retrieval benchmarks, first-stage failure analysis, and versioned reproducibility artifacts.</dd>
+  <dt>Evidence</dt>
+  <dd><a href="https://github.com/GioiaZheng/msmarco-genqa">GitHub repo</a> · <a href="https://github.com/GioiaZheng/msmarco-genqa/blob/main/RESULTS.md">MS MARCO results</a> · <a href="https://github.com/GioiaZheng/msmarco-genqa/blob/main/docs/cross_dataset_error_analysis.md">NFCorpus/SciFact error analysis</a> · <a href="https://huggingface.co/datasets/GioiaZheng/msmarco-genqa-benchmark-runs">Hugging Face benchmark runs</a></dd>
+</dl>
 
 ## Headline result
 
