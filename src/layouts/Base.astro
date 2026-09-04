@@ -18,11 +18,13 @@ const {
 
 const canonical = new URL(Astro.url.pathname, Astro.site).toString();
 const socialImage = new URL("/social-card.png", Astro.site).toString();
+const profileImage = new URL("/avatar.png", Astro.site).toString();
 const personJsonLd = JSON.stringify({
   "@context": "https://schema.org",
   "@type": "Person",
   name: "Gioia Zheng",
   url: new URL("/", Astro.site).toString(),
+  image: profileImage,
   sameAs: [
     "https://github.com/GioiaZheng",
     "https://www.linkedin.com/in/gioiazheng/",
@@ -90,7 +92,8 @@ const csp = [
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={socialImage} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/avatar.png" />
     <script type="application/ld+json" set:html={personJsonLd} />
   </head>
   <body>
