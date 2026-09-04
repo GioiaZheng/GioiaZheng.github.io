@@ -478,6 +478,29 @@ main.is-wide {
   max-width: 100%;
 }
 
+.hero-identity {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-4);
+  margin-bottom: var(--s-4);
+}
+
+.hero-avatar {
+  width: clamp(4.75rem, 12vw, 6.5rem);
+  height: clamp(4.75rem, 12vw, 6.5rem);
+  border-radius: 50%;
+  object-fit: cover;
+  background: #fff;
+  border: 1px solid rgba(17, 18, 20, 0.12);
+  box-shadow: 0 10px 30px rgba(25, 26, 29, 0.10);
+  flex: 0 0 auto;
+}
+
+.hero-identity .hero-eyebrow {
+  margin: 0;
+}
+
 .hero-eyebrow {
   display: inline-flex;
   align-items: center;
@@ -1526,6 +1549,14 @@ main.is-wide {
   .hero-eyebrow {
     display: block;
     line-height: 1.6;
+  }
+  .hero-identity {
+    align-items: flex-start;
+    gap: var(--s-3);
+  }
+  .hero-avatar {
+    width: 4.25rem;
+    height: 4.25rem;
   }
   .hero-text,
   .section,
