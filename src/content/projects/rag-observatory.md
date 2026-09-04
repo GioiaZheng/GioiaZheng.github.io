@@ -32,6 +32,19 @@ A local-first research prototype that turns RAG execution traces into inspectabl
 
 The project is deliberately not another RAG pipeline or chatbot framework. Its role is the diagnostic layer around experiments: capture what happened, make failures reviewable, and keep comparisons reproducible.
 
+## Evidence map
+
+<dl class="summary-grid">
+  <dt>Research question</dt>
+  <dd>Which RAG failure mode becomes visible when retrieval depth, context selection, or trace observability changes?</dd>
+  <dt>Key result</dt>
+  <dd>On 20 fixed BEIR SciFact test queries, increasing BM25 retrieval depth from <code>top_k=1</code> to <code>top_k=5</code> produced 40 public traces and raised retrieval hits from 13/20 to 14/20. The same run also exposed a heuristic limitation: <code>retrieval_noise</code> fired on every <code>top_k=5</code> trace because any irrelevant retrieved document triggered the label.</dd>
+  <dt>What I did</dt>
+  <dd>Built trace validation, stage-aware reports, failure labels, run comparison, OpenTelemetry/OpenInference JSON ingestion, and configuration-sensitive diagnostics.</dd>
+  <dt>Evidence</dt>
+  <dd><a href="https://github.com/GioiaZheng/rag-observatory">GitHub repo</a> · <a href="https://github.com/GioiaZheng/rag-observatory/blob/main/docs/reports/2026-07-25-scifact-retrieval-depth.md">SciFact retrieval-depth report</a> · <a href="https://huggingface.co/spaces/GioiaZheng/rag-observatory">Hugging Face Space</a> · <a href="https://huggingface.co/datasets/GioiaZheng/rag-observatory-toy-traces">Toy trace dataset</a></dd>
+</dl>
+
 ## Technical components
 
 <dl class="kv">
