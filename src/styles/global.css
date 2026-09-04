@@ -1480,6 +1480,27 @@ main.is-wide {
   margin: var(--s-2) 0;
 }
 
+.essay table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: var(--s-5) 0 var(--s-6);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.essay th,
+.essay td {
+  border-bottom: 1px solid var(--line);
+  padding: var(--s-2) var(--s-3);
+  text-align: left;
+  vertical-align: top;
+}
+
+.essay th {
+  color: var(--fg);
+  font-weight: 600;
+}
+
 .essay > blockquote {
   border-left: 3px solid var(--line-strong);
   margin: var(--s-5) 0;
@@ -1539,6 +1560,12 @@ main.is-wide {
   .site-nav a {
     flex: 0 0 auto;
     text-align: left;
+  }
+  .essay table {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
   }
   .hero {
     padding-top: var(--s-6);
