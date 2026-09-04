@@ -25,7 +25,7 @@ const personJsonLd = JSON.stringify({
   url: new URL("/", Astro.site).toString(),
   sameAs: [
     "https://github.com/GioiaZheng",
-    "https://www.linkedin.com/in/gioia-zheng-9233a0303",
+    "https://www.linkedin.com/in/gioiazheng/",
     "https://orcid.org/0009-0000-8212-4506",
     "https://huggingface.co/GioiaZheng",
   ],
@@ -38,6 +38,7 @@ const personJsonLd = JSON.stringify({
     "Retrieval-augmented generation evaluation",
     "Grounding evaluation",
     "Reproducible machine learning",
+    "Reinforcement learning for game and embodied agents",
   ],
 });
 const jsonLdHash = createHash("sha256").update(personJsonLd).digest("base64");
