@@ -64,7 +64,7 @@ src/
     writing/*.md
   styles/global.css            # all site styles
 public/
-  cv/Gioia_Zheng_cv.pdf        # served at /cv/Gioia_Zheng_cv.pdf
+  cv/Gioia_Zheng_CV.pdf        # served at /cv/Gioia_Zheng_CV.pdf
 ```
 
 ## Deployment
