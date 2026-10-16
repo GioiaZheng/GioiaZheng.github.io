@@ -18,16 +18,16 @@ OCR is usually treated as a closed API call. This project takes it apart: image 
 
 ## What I built
 
-A PyTorch training pipeline on the IAM handwriting dataset (line-level), evaluated with Character Error Rate and Word Error Rate. A small inference web UI under [`OCR_WebApp/`](https://github.com/GioiaZheng/handwritten-ocr-system/tree/main/OCR_WebApp) for visual inspection.
+A PyTorch CNN-RNN-CTC implementation for IAM sentence images, with preprocessing, an evaluation harness for Character Error Rate and Word Error Rate, and a small inference web UI under [`OCR_WebApp/`](https://github.com/GioiaZheng/handwritten-ocr-system/tree/main/OCR_WebApp) for visual inspection.
 
 ## Technical components
 
 <dl class="kv">
   <dt>Framework</dt><dd>PyTorch</dd>
   <dt>Architecture</dt><dd>CNN feature extractor → BiLSTM → CTC head</dd>
-  <dt>Data</dt><dd>IAM handwriting database, line-level</dd>
-  <dt>Metrics</dt><dd>Character Error Rate, Word Error Rate (held-out splits)</dd>
-  <dt>Decoding</dt><dd>Greedy + beam CTC decoding</dd>
+  <dt>Data</dt><dd>IAM sentence images</dd>
+  <dt>Metrics</dt><dd>Character Error Rate and Word Error Rate evaluation harness</dd>
+  <dt>Decoding</dt><dd>Greedy CTC decoding</dd>
   <dt>Inference UI</dt><dd>Web app under <code>OCR_WebApp/</code> for visual prediction inspection</dd>
 </dl>
 
@@ -37,12 +37,12 @@ A PyTorch training pipeline on the IAM handwriting dataset (line-level), evaluat
 
 ## Current status
 
-Experimental. The architecture and training loop are stable; results table on the repo is the open item.
+Experimental. The architecture and evaluation harness are available, but the repository does not currently publish a reproducible checkpoint or verified CER/WER result.
 
 ## Limitations
 
-- Line-level only — no full-page layout analysis.
-- No language model fusion; decoded outputs are raw model predictions plus simple beam search.
+- Sentence-image recognition only — no full-page layout analysis.
+- No language model fusion; the published decoder uses greedy CTC decoding.
 - No published baseline comparison yet (see Evidence).
 
 ## Repo
