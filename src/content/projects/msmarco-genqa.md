@@ -4,30 +4,30 @@ summary: Reproducible retrieve → rerank → generate pipeline on MS MARCO with
 order: 1
 featured: true
 academic: true
-status: active
-last_updated: "2026-07-28"
+status: maintained
+last_updated: "2026-10-17"
 repo: https://github.com/GioiaZheng/msmarco-genqa
 tags: ["retrieval", "rag", "evaluation", "reproducibility"]
 ---
 
 <dl class="summary-grid">
-  <dt>System</dt>
-  <dd>BM25 → dense (MiniLM L6) → cross-encoder rerank → T5-small generation</dd>
+  <dt>Comparison</dt>
+  <dd>Full-corpus BM25 top-3 versus cross-encoder-reranked dense top-3 from a 50 000-passage pool seeded with the queries' judged-relevant passages (qrels-anchored); T5-small and all 6 980 <code>dev/small</code> queries are fixed</dd>
   <dt>Dataset</dt>
-  <dd>MS MARCO passage, 8.8 M docs, 6 980 paired queries (dev/small)</dd>
+  <dd>MS MARCO passage: 8.8 M passages in the BM25 arm; a qrels-anchored 50 000-passage pool in the reranked-dense arm</dd>
   <dt>Main result</dt>
-  <dd>Reranking lifts Token-F1 from 0.197 to 0.368 (Δ&nbsp;+0.171, 95 % CI [+0.163, +0.178], paired bootstrap)</dd>
+  <dd>Under these different first-stage conditions, Token-F1 is 0.197 versus 0.368 (Δ&nbsp;+0.171, 95 % CI [+0.163, +0.179], paired bootstrap). This does not isolate the reranker's causal effect.</dd>
   <dt>External retrieval</dt>
   <dd>TREC-DL 2019/2020 full-corpus BM25 + cross-encoder benchmark, independently cross-checked</dd>
   <dt>Reproducibility</dt>
   <dd>Schema-v2 manifest contract; <code>make reproduce-baseline</code> from clean clone</dd>
   <dt>Status</dt>
-  <dd>Active &mdash; CPU-only, single-machine, CI-backed test suite</dd>
+  <dd>Maintained &mdash; research baseline frozen through thesis completion and graduation; security and reproducibility maintenance only</dd>
 </dl>
 
 ## Problem
 
-Surface generation metrics (Token-F1, ROUGE-L) on retrieve → rerank → generate pipelines do not, by themselves, tell you whether the generator's output is actually supported by the retrieved evidence. Reranking the retrieval stage can simultaneously raise surface metrics and reduce grounding on the same fixed generator. Quantifying this requires a pipeline where every component is exchangeable, every run is reproducible to a bit-level manifest, and statistical comparisons are paired and confidence-bounded.
+Surface generation metrics (Token-F1, ROUGE-L) on retrieve → rerank → generate pipelines do not, by themselves, tell you whether the generator's output is actually supported by the retrieved evidence. In the evaluated paired comparison, surface metrics improve under the reranked-dense arm while the grounding checks disagree: lexical and 3-gram overlap remain near ceiling, but the sentence-level NLI proxy falls. This divergence is an evaluator-sensitivity finding, not proof that grounding itself worsened. Studying it requires a pipeline where every component is exchangeable, every run is reproducible to a bit-level manifest, and statistical comparisons are paired and confidence-bounded.
 
 ## What I built
 
@@ -39,7 +39,7 @@ Four entry-point scripts under [`experiments/`](https://github.com/GioiaZheng/ms
   <dt>Research question</dt>
   <dd>When do retrieval and reranking improvements transfer into better generated answers, and when are they bounded by missing first-stage candidates?</dd>
   <dt>Key result</dt>
-  <dd>On MS MARCO <code>dev/small</code>, reranked dense top-3 improves T5-small Token-F1 from 0.1966 to 0.3677 across 6,980 paired queries (Δ +0.1711, 95% CI [+0.1632, +0.1789]). On BEIR NFCorpus and SciFact, cross-encoder reranking improves early ranking while Recall@100 stays fixed because the reranker only sees the BM25 top-100 candidate set.</dd>
+  <dd>On MS MARCO <code>dev/small</code>, the reranked-dense arm (50 000-passage qrels-anchored pool) reaches T5-small Token-F1 0.3677 versus 0.1966 for the full-corpus BM25 arm across 6 980 paired queries (Δ +0.1711, 95% CI [+0.1632, +0.1789]). This is not a like-for-like full-corpus retrieval comparison. On BEIR NFCorpus and SciFact, cross-encoder reranking improves early ranking while Recall@100 stays fixed because the reranker only sees the BM25 top-100 candidate set.</dd>
   <dt>What I did</dt>
   <dd>Built retrieval, reranking, generation, paired-bootstrap evaluation, external retrieval benchmarks, first-stage failure analysis, and versioned reproducibility artifacts.</dd>
   <dt>Evidence</dt>
@@ -48,7 +48,7 @@ Four entry-point scripts under [`experiments/`](https://github.com/GioiaZheng/ms
 
 ## Headline result
 
-Generation × retrieval source, full MS MARCO dev/small, 6 980 paired queries, paired bootstrap (N = 10 000).
+All 6 980 MS MARCO <code>dev/small</code> queries; fixed T5-small generator; full-corpus BM25 top-3 versus reranked dense top-3 from the 50 000-passage qrels-anchored pool; paired bootstrap (N = 10 000). The comparison changes the first-stage retrieval condition as well as the use of reranking.
 
 <div class="metric-grid">
   <div class="metric">
@@ -100,7 +100,7 @@ Retrieval-only, BM25 on the full 8.8 M-passage corpus (6 980 queries):
 ## Evidence status
 
 <dl class="kv">
-  <dt>Validated result</dt><dd>On MS MARCO <code>dev/small</code>, reranked dense top-3 improves T5-small surface metrics over BM25 top-3 on 6 980 paired queries. The dense and reranking stages use a documented 50 000-passage qrels-anchored pool, not a full-corpus dense first stage.</dd>
+  <dt>Validated result</dt><dd>On MS MARCO <code>dev/small</code>, the evaluated reranked-dense arm yields higher T5-small surface metrics than the full-corpus BM25 arm on 6 980 paired queries. The dense and reranking stages use a documented 50 000-passage qrels-anchored pool, not a full-corpus dense first stage, so the result does not isolate reranking.</dd>
   <dt>Validated external retrieval</dt><dd>On all 43 TREC-DL 2019 and 54 TREC-DL 2020 judged topics, cross-encoder reranking improves MRR@10 and graded nDCG@10 over full-corpus BM25. The protocol and checked artifact are in the repository's <a href="https://github.com/GioiaZheng/msmarco-genqa/blob/main/docs/trec_dl_external_validity.md">TREC-DL report</a>.</dd>
   <dt>Implemented, pending evaluation</dt><dd>The T5-base generator-capacity sweep and configurable alternative-generator paths exist, but no T5-base or FLAN-T5 headline result is claimed without a complete versioned run.</dd>
   <dt>Not established</dt><dd>The current artifacts do not show that TREC-DL retrieval gains transfer to generation, that dense retrieval beats BM25 under a fair full-corpus condition, or that the findings generalize beyond MS MARCO passages.</dd>
@@ -143,7 +143,7 @@ make reproduce-baseline
 
 ## Current status
 
-Active. The paired MS MARCO generation comparison and the TREC-DL 2019/2020 BM25-plus-reranker benchmark are completed, versioned evidence. The T5-base capacity study and broader generator comparisons remain implemented or planned work; they are not reported as empirical findings until their artifacts land.
+Maintained. The paired MS MARCO generation comparison and the TREC-DL 2019/2020 BM25-plus-reranker benchmark are completed, versioned evidence. The research baseline is frozen through thesis completion and graduation; security and reproducibility maintenance may continue, but no new experimental result is claimed until a complete versioned artifact exists.
 
 ## Repo
 
