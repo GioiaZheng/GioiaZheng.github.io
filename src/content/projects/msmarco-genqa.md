@@ -27,7 +27,7 @@ tags: ["retrieval", "rag", "evaluation", "reproducibility"]
 
 ## Problem
 
-Surface generation metrics (Token-F1, ROUGE-L) on retrieve → rerank → generate pipelines do not, by themselves, tell you whether the generator's output is actually supported by the retrieved evidence. In the evaluated paired comparison, surface metrics improve under the reranked-dense arm while the grounding checks disagree: lexical and 3-gram overlap remain near ceiling, but the sentence-level NLI proxy falls. This divergence is an evaluator-sensitivity finding, not proof that grounding itself worsened. Studying it requires a pipeline where every component is exchangeable, every run is reproducible to a bit-level manifest, and statistical comparisons are paired and confidence-bounded.
+Surface generation metrics (Token-F1, ROUGE-L) on retrieve → rerank → generate pipelines do not, by themselves, tell you whether the generator's output is actually supported by the retrieved evidence. In the evaluated paired comparison, surface metrics improve under the reranked-dense arm while the grounding checks disagree: lexical and 3-gram overlap remain near ceiling, but the sentence-level NLI proxy falls. This divergence is an evaluator-sensitivity finding, not proof that grounding itself worsened. Studying it requires exchangeable components, paired confidence-bounded comparisons, and explicit provenance: new runs are checked against a versioned manifest contract, while legacy canonical runs carry separate provenance backfills with unrecoverable fields marked <code>unknown</code>.
 
 ## What I built
 
@@ -53,27 +53,27 @@ All 6 980 MS MARCO <code>dev/small</code> queries; fixed T5-small generator; ful
 <div class="metric-grid">
   <div class="metric">
     <div class="metric-label">Token-F1</div>
-    <div class="metric-value">0.368</div>
-    <div class="metric-delta">Δ +0.171 vs 0.197</div>
-    <div class="metric-ci">CI [+0.163, +0.178]</div>
+    <div class="metric-value">+0.171</div>
+    <div class="metric-delta">paired per-query Δ</div>
+    <div class="metric-ci">CI [+0.163, +0.179]</div>
   </div>
   <div class="metric">
     <div class="metric-label">ROUGE-L</div>
-    <div class="metric-value">0.368</div>
-    <div class="metric-delta">Δ +0.174 vs 0.193</div>
-    <div class="metric-ci">CI [+0.166, +0.181]</div>
+    <div class="metric-value">+0.174</div>
+    <div class="metric-delta">paired per-query Δ</div>
+    <div class="metric-ci">CI [+0.166, +0.182]</div>
   </div>
   <div class="metric">
-    <div class="metric-label">BLEU</div>
-    <div class="metric-value">+0.221</div>
-    <div class="metric-delta">Δ vs BM25</div>
-    <div class="metric-ci">CI strictly &gt; 0</div>
+    <div class="metric-label">Sentence BLEU</div>
+    <div class="metric-value">+0.133</div>
+    <div class="metric-delta">paired per-query Δ</div>
+    <div class="metric-ci">CI [+0.127, +0.140]</div>
   </div>
   <div class="metric">
     <div class="metric-label">Exact Match</div>
     <div class="metric-value">+0.047</div>
-    <div class="metric-delta">Δ vs BM25</div>
-    <div class="metric-ci">CI strictly &gt; 0</div>
+    <div class="metric-delta">paired per-query Δ</div>
+    <div class="metric-ci">CI [+0.042, +0.053]</div>
   </div>
 </div>
 
