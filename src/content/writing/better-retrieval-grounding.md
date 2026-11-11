@@ -8,32 +8,33 @@ order: 1
 
 This is a short note from building [msmarco-genqa](/projects/msmarco-genqa/): retrieval quality and grounding should not be collapsed into one claim.
 
-In a retrieve -> rerank -> generate pipeline, the retrieval stack decides what the generator can see. Grounding asks a different question: whether the answer is actually supported by what the generator saw.
+In a retrieve -> rerank -> generate pipeline, the retrieval stack shapes what the generator can see. Context grounding asks a different question: whether the answer is supported by what the generator saw. Neither question, on its own, establishes that the answer is correct.
 
 Those two layers often move together, but not always.
 
 ## The observation
 
-Reranking can improve surface QA metrics because the shown passages become more query-shaped. On the MS MARCO dev/small run, the reranked generation setting improves Token-F1 over the BM25-conditioned setting.
+On the evaluated MS MARCO <code>dev/small</code> comparison, the reranked-dense arm reaches higher Token-F1 than the BM25-conditioned arm. The generator, prompt, top-k, and paired queries are fixed, but the retrieval boundaries differ: BM25 searches the full corpus, whereas the reranked-dense arm uses a 50,000-passage pool seeded with judged-relevant passages. The comparison therefore does not isolate the reranker's causal effect.
 
 That is a useful result. It is not, by itself, a faithfulness result.
 
-A reranker can also promote hard distractors: passages that are close to the query but wrong for the answer. If the generator follows that distractor, the output may sound specific and even share vocabulary with the reference while not being supported by the right evidence.
+Ranking and context construction can also promote answer-missing passages. If the generator follows one, the output may be supported by that supplied passage while still being irrelevant to the question or factually wrong. Context support, passage relevance, and answer correctness must therefore be checked separately.
 
 ## What I check
 
-For each intervention, I want to separate three questions:
+For each comparison, I want to separate four questions:
 
-1. Did relevant evidence enter the candidate set?
-2. Did the ranking stage place it above plausible distractors?
-3. Did the generator answer from the shown evidence?
+1. Did judged-relevant evidence enter the candidate set?
+2. What relevant and answer-missing passages were placed in the shown context?
+3. Did the output answer the question correctly or agree with the reference?
+4. Was the output supported by the shown context under a named, calibrated scorer?
 
-The first two are retrieval and ranking questions. The third is a grounding question. Token-F1, ROUGE-L, BLEU, and exact match are still useful, but I do not want them to be the only view of the system.
+These are related observations, not mutually exclusive causal labels. Token-F1, ROUGE-L, BLEU, and exact match remain useful reference-agreement measures, while NLI adds one context-support signal. None of them alone identifies which pipeline stage caused a change.
 
 ## Why this matters
 
-If Token-F1 rises and grounding rises, the intervention is probably helping the pipeline.
+If Token-F1 and an NLI grounding score both rise, the output has stronger reference agreement and stronger estimated context support under those scorers. Passage relevance and answer correctness still need to be checked.
 
-If Token-F1 rises and grounding falls, the system may only be getting better at producing answers that look right. That is a different result, and it needs a different next step.
+If Token-F1 rises while the grounding score falls, the signals disagree. That is an audit trigger, not evidence of a specific failure mechanism: the next step is case review, per-passage support analysis, and a check of evaluator sensitivity.
 
-The practical rule I use is simple: better retrieval is a necessary condition for good grounded generation, not a guarantee. Every retrieval improvement still needs a second-axis grounding check.
+The practical rule I use is simple: answer-bearing evidence must be available for context-grounded answering, but a higher aggregate retrieval score does not guarantee a better answer. Retrieval, answer quality, context relevance, and context support should remain separate reporting axes. The longer [failure-analysis note](/writing/rag-failure-analysis/) records the definitions and limitations used here.
