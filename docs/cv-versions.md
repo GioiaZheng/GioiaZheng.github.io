@@ -5,7 +5,7 @@ Maintain separate CVs for different applications. Do not replace the general CV 
 | Version | Repository path | Use |
 | --- | --- | --- |
 | General research | `public/cv/Gioia_Zheng_CV.pdf` | Default academic CV; machine learning, IR/NLP and learning-system evaluation |
-| Robotics | `public/cv/robotics/Gioia_Zheng_CV.pdf` | Robotics applications; Q-learning, OCR, IAS project and NoDiscorSi |
+| Robotics | `public/cv/robotics/Gioia_Zheng_CV.pdf` | Robotics applications; Q-learning, OCR, IAS project, DARE Student Member and NoDiscorSi |
 
 The general academic version was updated on 2026-11-11 with education in reverse chronological order and the 5 ECTS from UEF recognised at TU Darmstadt. It removes the predicted Sapienza graduation date, broadens the research framing and retains the ongoing IAS course project. Application-specific and historical variants are maintained separately in the owner's private activity ledger. The robotics PDF is unchanged by this revision.
 
@@ -21,3 +21,7 @@ The general academic version was updated on 2026-11-11 with education in reverse
 
 Submitted on 2026-11-07 with the robotics version. The form confirmed receipt and said the team would contact the applicant on the coming Friday (2026-11-13). This is submission confirmation, not acceptance.
 
+
+## Robotics update · 2026-11-15
+
+Added DARE Robotics - Student Member (TU Darmstadt, Nov 2026–Present) under Additional Experience. No department, project assignment or completed contribution is claimed. The general CV is unchanged. The robotics PDF can be regenerated with `python scripts/build_robotics_cv.py` (ReportLab and Windows Arial fonts required).
