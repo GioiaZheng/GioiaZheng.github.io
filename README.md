@@ -74,3 +74,8 @@ Push to `main`. The workflow in
 site and publishes the `dist/` artifact to Pages.
 
 Repository setting required once: **Settings → Pages → Source → GitHub Actions**.
+
+
+## CV versions
+
+See [CV version guide](docs/cv-versions.md). The default CV is the general research version; robotics applications use a separate file.
