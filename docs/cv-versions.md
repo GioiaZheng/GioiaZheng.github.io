@@ -28,4 +28,8 @@ Added DARE Robotics - Student Member (TU Darmstadt, Nov 2026–Present) under Ad
 
 ## General academic update - 18 November 2026
 
-Published at the shared default CV URL used by the website and GitHub profile README. Retains the general academic structure; adds the accepted PAIEC 2026 technical report and DARE New Member entry, corrects Idearia to Web Development Collaborator, and lists the three IAS project supervisors. PAIEC and DARE dates are right-aligned. No award or presentation claim. Application-specific CVs remain separate.
+Published at the shared default CV URL used by the website and GitHub profile README. Retains the general academic structure; adds the accepted PAIEC 2026 technical report and DARE New Member entry, corrects Idearia to Web Development Collaborator, and lists the three IAS project supervisors. PAIEC and DARE dates are right-aligned. No award or ranking claim. Application-specific CVs remain separate.
+
+## PAIEC poster selection - 19 November 2026
+
+The general academic CV now states that the accepted PAIEC technical report was selected for poster presentation. It does not claim completed presentation, an award or a proceedings publication. The original submission and prior CV snapshots remain preserved in the private ledger.
