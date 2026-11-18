@@ -141,6 +141,15 @@ const recent = writing[0];
     )
   }
 
+  <section class="section oss-contributions" aria-labelledby="oss-title">
+    <h2 id="oss-title">Selected Open-Source Contributions</h2>
+    <p>Only merged, publicly verifiable contributions are listed here.</p>
+    <table>
+      <thead><tr><th scope="col">Ecosystem</th><th scope="col">Contributions and evidence</th></tr></thead>
+      <tbody><tr><th scope="row">Open RAG Eval</th><td><ul><li>Preserved input query order when loading RAG results and added a regression test. <a href="https://github.com/vectara/open-rag-eval/pull/162">vectara/open-rag-eval#162</a></li></ul></td></tr><tr><th scope="row">MTEB</th><td><ul><li>Fixed duplicate counting for symmetric STS pairs. <a href="https://github.com/embeddings-benchmark/mteb/pull/4958">embeddings-benchmark/mteb#4958</a></li><li>Updated GermanGovService retrieval to the v2 dataset. <a href="https://github.com/embeddings-benchmark/mteb/pull/5323">embeddings-benchmark/mteb#5323</a></li><li>Added checks requiring reproducible run settings for newly submitted results. <a href="https://github.com/embeddings-benchmark/results/pull/676">embeddings-benchmark/results#676</a></li><li>Added model language-scope display on leaderboard cards. <a href="https://github.com/embeddings-benchmark/leaderboard-frontend/pull/31">embeddings-benchmark/leaderboard-frontend#31</a></li></ul></td></tr><tr><th scope="row">Pyserini</th><td><ul><li>Fixed M-BEIR instruction lookup from cache-home paths. <a href="https://github.com/castorini/pyserini/pull/2655">castorini/pyserini#2655</a></li></ul></td></tr></tbody>
+    </table>
+  </section>
+
   {
     recent && (
       <section class="section">
@@ -165,3 +174,15 @@ const recent = writing[0];
     )
   }
 </Base>
+
+<style>
+  .oss-contributions table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 0.9rem; }
+  .oss-contributions th, .oss-contributions td { padding: 0.8rem; border-bottom: 1px solid var(--border, #d5d9dd); text-align: left; vertical-align: top; }
+  .oss-contributions tbody th { width: 22%; }
+  .oss-contributions ul { margin: 0; padding-left: 1.1rem; }
+  .oss-contributions li + li { margin-top: 0.65rem; }
+  .oss-contributions a { overflow-wrap: anywhere; }
+  @media (max-width: 600px) {
+    .oss-contributions th, .oss-contributions td { padding: 0.6rem 0.4rem; }
+  }
+</style>
