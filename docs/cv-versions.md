@@ -25,3 +25,7 @@ Submitted on 2026-11-07 with the robotics version. The form confirmed receipt an
 ## Robotics update · 2026-11-15
 
 Added DARE Robotics - Student Member (TU Darmstadt, Nov 2026–Present) under Additional Experience. No department, project assignment or completed contribution is claimed. The general CV is unchanged. The robotics PDF can be regenerated with `python scripts/build_robotics_cv.py` (ReportLab and Windows Arial fonts required).
+
+## General academic update - 18 November 2026
+
+Published at the shared default CV URL used by the website and GitHub profile README. Retains the general academic structure; adds the accepted PAIEC 2026 technical report and DARE New Member entry, corrects Idearia to Web Development Collaborator, and lists the three IAS project supervisors. PAIEC and DARE dates are right-aligned. No award or presentation claim. Application-specific CVs remain separate.
