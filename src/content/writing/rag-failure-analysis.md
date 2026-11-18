@@ -1,62 +1,68 @@
 ---
 title: "Failure Taxonomy for RAG Systems"
-summary: "When a RAG score changes, I want to know which layer moved: retrieval gap, rank inversion, evidence under-use, fabrication, or metric artifact."
+summary: "When a RAG score changes, I want to know which observable moved: evidence availability, context composition, answer quality, context support, or the metric itself."
 date: "2026-05-28"
 status: published
 order: 2
 ---
 
-A retrieve &rarr; rerank &rarr; generate pipeline can fail at four roughly disjoint points. Most evaluations roll them up into one score. That makes pipeline-level regressions almost invisible: an improvement at one stage that worsens another can wash out completely in the average, or &mdash; worse &mdash; appear as a net win while the actual error mix shifts in a damaging direction.
+A retrieve &rarr; rerank &rarr; generate pipeline can fail in several interacting ways. Aggregate scores can hide whether a change affects evidence coverage, ranking and context composition, answer quality, or support from the retrieved context. An improvement in one observable can wash out a regression in another, or appear as a net win while the error mix shifts.
 
 This note argues for treating failure analysis as a first-class output of evaluation, not as a follow-up exercise. It is methodological &mdash; not a results write-up &mdash; and is shaped by the design choices that went into building [msmarco-genqa](/projects/msmarco-genqa/).
 
-## Four failure modes, named
+## Four review patterns
 
-For a system that takes a query, retrieves passages, reranks them, and generates an answer, the failure space partitions reasonably well into:
+For a system that takes a query, retrieves passages, reranks them, and generates an answer, four useful review patterns are:
 
-1. **Retrieval gap.** No relevant passage appears in the candidate pool. The reranker has nothing to promote; the generator is asked to answer from negative evidence. The right action is at the retrieval stage &mdash; expand the candidate pool, swap the encoder &mdash; not at the generator.
+1. **Retrieval gap.** No judged-relevant passage appears in the candidate pool. The reranker therefore has no labelled positive to promote. This identifies a first-stage coverage problem, but it does not by itself explain how the generator will behave.
 
-2. **Rank inversion.** A relevant passage is in the candidate pool but the reranker promotes a confidently-wrong distractor above it. This is the failure mode Cuconasu et al. (SIGIR 2024) characterise as the "hard distractor" pattern: lexically or semantically similar to the query but factually unrelated, and exactly the kind of passage a stronger reranker selects.
+2. **Rank or context-composition failure.** A judged-relevant passage is available, but an answer-missing passage is ranked above it or consumes the context budget. Cuconasu et al. study highly scored, query-related passages that do not contain the answer and report that they can reduce answer accuracy under their experimental setup. Their result motivates this audit; it does not establish that every reranker-related regression has this cause.
 
-3. **Evidence under-use.** The relevant passage is in the top-k handed to the generator, but the generator outputs something either generic ("I cannot answer") or grounded in its parametric prior rather than the supplied passage. The retrieval and ranking did their job; the generation step did not condition.
+3. **Evidence under-use.** Answer-bearing evidence is present in the supplied context, but the output omits it, gives an incomplete answer, or abstains. Unsupported content may come from parametric memory or another source, but its provenance cannot be inferred from the output alone.
 
-4. **Fabrication.** The output is fluent, plausibly relevant, and not supported by anything in the retrieved passages. From outside the pipeline this looks identical to a correct answer except on a faithfulness check.
+4. **Unsupported generation.** The output contains a claim that is not supported by the retrieved context. Such a claim may still agree with the reference &mdash; or even be factually correct &mdash; so context faithfulness must be assessed separately from answer correctness.
 
-Categories (1) and (2) are owned by the retrieval / ranking stack; (3) and (4) are owned by the generator and by the grounding metric. Conflating them under one number means a regression in (4) can be hidden by an improvement in (1), and the pipeline is silently shifting in the wrong direction.
+These patterns are diagnostic labels, not mutually exclusive ownership assignments. A single query can exhibit more than one of them, and the cause may lie in retrieval, ranking, context construction, prompting, generation, annotation, or the evaluator itself. Causal attribution therefore requires controlled comparisons or case-level review.
 
 ## Why aggregates hide the shift
 
-Token-F1, ROUGE-L, BLEU and BERTScore all reward token-level overlap with the reference. A fabrication that happens to use the same vocabulary as the reference scores well. An honest "I cannot answer" scores zero even when (1) is the correct diagnosis and the system should not have been required to answer at all.
+Token-F1, ROUGE-L, and BLEU are lexical reference-agreement metrics: they use token overlap, longest common subsequences, and n-gram overlap, respectively. BERTScore is different: it matches contextual token embeddings and can credit semantically similar wording without exact lexical overlap. All four compare an output with a reference; none by itself establishes that the output is supported by the retrieved context. An unsupported answer can therefore score well when it resembles the reference, while a faithful paraphrase or abstention may be penalised &mdash; most sharply by the lexical metrics.
 
-A concrete pattern from msmarco-genqa: turning on a cross-encoder reranker between dense retrieval and the generator raises Token-F1 on the dev/small split (BM25 0.197 &rarr; reranked 0.368, &Delta; +0.171 with 95% CI [+0.163, +0.178], paired bootstrap, N = 6 980). The aggregate says "reranking helps." The aggregate does not say whether the &Delta; comes from fixing category (1) errors (genuine improvement) or from category (4) shifts (the reranker promoted hard distractors that share vocabulary with the reference, so the fabricated answer scored higher).
+In msmarco-genqa, the evaluated reranked-dense arm reaches higher Token-F1 than the BM25 arm on 6,980 paired <code>dev/small</code> queries (0.1966 &rarr; 0.3677, &Delta; +0.1711 with 95% CI [+0.1632, +0.1789]). The generator, prompt, top-k, and queries are fixed, but the retrieval boundaries are not: BM25 searches the full corpus, whereas the dense + reranker arm uses a 50,000-passage pool seeded with the queries' judged-relevant passages (qrels-anchored). The result establishes higher reference agreement under those two evaluated configurations; it does not isolate the reranker's causal effect or explain the mechanism.
 
-This is the precise gap an NLI-based grounding score is built to detect: it asks, per output, whether the produced text is entailed by the retrieved passage, independent of how much vocabulary it shares with the reference. If the &Delta; in Token-F1 is genuine, grounding rises with it. If the &Delta; comes from hard distractors, grounding falls while Token-F1 climbs.
+An NLI-based score adds one context-support signal by estimating whether the retrieved context entails the generated output. Unlike exact lexical metrics, it targets entailment rather than surface overlap, but it does not determine whether the supporting context is relevant to the question or whether the answer is correct. If a model follows an irrelevant distractor, that distractor may entail the wrong answer and produce a high grounding score. A divergence between reference agreement and NLI grounding is therefore an audit trigger, not a diagnosis; attribution requires relevance and correctness checks, per-passage analysis, and case review.
 
-## What "per-category" looks like in practice
+## What per-query evidence looks like in practice
 
-The unit of evaluation becomes a triple per query:
+The unit of evaluation becomes a set of observations per query:
 
-- a retrieval-stage label &mdash; did the relevant passage reach the top-k handed to the generator? (binary)
-- a ranking-stage label &mdash; if it reached top-k, was it ranked at or above the highest-scored irrelevant passage? (binary, conditional)
-- a generation-stage label &mdash; given the top-k actually shown to the generator, is the output entailed by any of them? (NLI-based, ternary: entailed / neutral / contradicted)
+- **Evidence availability:** did a judged-relevant passage reach the context shown to the generator?
+- **Context composition:** where were relevant and answer-missing passages ranked?
+- **Answer quality:** how well did the output answer the question or agree with the reference?
+- **Context support:** was the output supported by the supplied context, under a named and calibrated scorer?
 
-The output of evaluation is then a 2 &times; 2 &times; 3 = 12-cell contingency. Most cells will be empty or rare. The two cells that matter for pipeline regressions are:
-
-- _"reached top-k, properly ranked, NOT entailed"_ &mdash; the generator failed to condition. Increasing this rate is a regression even if the aggregate score improves.
-- _"reached top-k, hard distractor ranked above, entailed by distractor"_ &mdash; the reranker actively misled the generator. This is the cell that Cuconasu-style mechanism analysis lives in, and it is invisible if you only look at aggregates.
-
-Reporting these per-category rates alongside the aggregate, with paired bootstrap confidence intervals on the difference between system A and system B for each cell, lets a reader see exactly _which_ failure mode is moving when an intervention is applied. The aggregate alone cannot.
+These observations should be cross-tabulated rather than forced into a single causal label. In particular, joined-context NLI cannot identify which passage supports an output; a claim that the generator followed a distractor requires per-passage support checks together with passage relevance and answer correctness. Paired confidence intervals can quantify which observed rates changed, while controlled ablations or case review are still needed to explain why.
 
 ## Two design implications
 
-**Grounding is not a tiebreaker; it is the second axis.** A surface metric and a grounding metric measure different things; reporting only their sum (or worse, only the surface metric) collapses a 2D quantity to 1D, and the collapsed coordinate is exactly where the interesting regressions hide. The right unit is the pair `(surface, grounding)`, reported with paired CIs.
+**Grounding is a separate axis, not a diagnosis.** Reference agreement, answer relevance or correctness, context relevance, and context faithfulness measure different properties. They should be reported separately rather than summed into one score. Their joint pattern narrows the investigation, but it does not by itself identify the causal stage.
 
-**Failure categories deserve to be a versioned data product.** Once you commit to per-category reporting, the category definitions and the labeller (NLI model, threshold, score formula) become load-bearing for cross-experiment comparison. Pinning them &mdash; in a manifest, alongside the model revisions &mdash; is what turns "this run had 12% category-4 errors" into a comparable claim across experiments.
+**Audit fields deserve to be a versioned data product.** Once you commit to per-query reporting, the field definitions and each labeller (NLI model, threshold, score formula) become load-bearing for cross-experiment comparison. Pinning them &mdash; in a manifest, alongside model revisions &mdash; is what turns a reported rate into a comparable claim across experiments.
 
 ## What this note is not
 
-This is a methodological argument, not a results paper. The concrete msmarco-genqa numbers above are a single intervention on one dataset with one generator; whether the surface-up / grounding-down direction reverses on T5-base, on a different NLI backbone, or under a different decision threshold is exactly what the next experimental round is set up to test. The point here is narrower: when you set up that test, the unit of evaluation should be per-category &mdash; not a single number with a confidence interval glued on.
+This is a methodological note, not a causal account of the reported result. The concrete msmarco-genqa figures describe one fixed paired comparison with different first-stage retrieval boundaries; they do not establish that hard distractors caused the observed change. Any disagreement among lexical reference agreement, semantic similarity, and grounding signals should be treated as a hypothesis to inspect rather than a completed diagnosis.
+
+## References
+
+- [Papineni et al. (2002), BLEU](https://aclanthology.org/P02-1040/)
+- [Lin (2004), ROUGE](https://aclanthology.org/W04-1013/)
+- [Zhang et al. (2020), BERTScore](https://arxiv.org/abs/1904.09675)
+- [Laban et al. (2022), SummaC](https://aclanthology.org/2022.tacl-1.10/)
+- [Chen and Eger (2023), MENLI](https://aclanthology.org/2023.tacl-1.47/)
+- [Cuconasu et al. (2024), The Power of Noise](https://arxiv.org/abs/2401.14887)
+- [Saad-Falcon et al. (2024), ARES](https://aclanthology.org/2024.naacl-long.20/)
 
 ---
 
-_Status: working note. References will be expanded as the next experimental round closes; the Cuconasu et al. hard-distractor result and the SummaC / MENLI line on NLI-as-faithfulness are the obvious anchors._
+_Status: methodological note. Metric definitions and limitations are anchored above; empirical mechanism claims remain conditional on case review or controlled ablation._

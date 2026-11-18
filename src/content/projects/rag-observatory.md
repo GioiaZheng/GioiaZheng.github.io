@@ -4,8 +4,8 @@ summary: Research prototype for trace-based RAG observability and failure analys
 order: 2
 featured: true
 academic: true
-status: active
-last_updated: "2026-07-27"
+status: maintained
+last_updated: "2026-10-28"
 repo: https://github.com/GioiaZheng/rag-observatory
 demo: https://huggingface.co/spaces/GioiaZheng/rag-observatory
 tags: ["rag", "observability", "failure-analysis", "reproducibility"]
@@ -19,7 +19,7 @@ tags: ["rag", "observability", "failure-analysis", "reproducibility"]
   <dt>Outputs</dt>
   <dd>Validated traces, failure labels, comparisons, benchmark summaries, and inspectable Markdown / HTML reports</dd>
   <dt>Status</dt>
-  <dd>Research prototype &mdash; core reporting loop implemented and exercised on 40 public BEIR SciFact traces</dd>
+  <dd>Maintained research prototype &mdash; core reporting loop implemented and exercised on 40 public BEIR SciFact traces</dd>
 </dl>
 
 ## Problem
@@ -89,7 +89,7 @@ The extra retrieval depth recovered one additional relevant result, while the cu
 
 ## Current status
 
-Research prototype. Public trace conversion, OpenTelemetry/OpenInference JSON ingestion, stage-aware reports, configuration comparison, and a real SciFact smoke run are in place. The next study will examine chunk-boundary sensitivity under fixed evidence and evaluation settings.
+Maintained research prototype. Public trace conversion, OpenTelemetry/OpenInference JSON ingestion, stage-aware reports, configuration comparison, and a real SciFact smoke run are in place. Existing public artifacts remain inspectable; active experimental development is paused while current thesis and paper work is completed.
 
 ## Public artifacts
 
