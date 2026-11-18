@@ -19,7 +19,7 @@ export const GET: APIRoute = async ({ site }) => {
       path: `/writing/${entrySlug(entry)}/`,
       lastmod: entry.data.date,
     }));
-  const pages = [
+  const pages: Array<{ path: string; lastmod?: string }> = [
     { path: "/" },
     { path: "/projects/" },
     { path: "/writing/" },
