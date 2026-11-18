@@ -1,10 +1,14 @@
 ---
 import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
 import Base from "../../layouts/Base.astro";
 import { entrySlug } from "../../lib/content";
 
 const all = await getCollection("writing");
-const byOrderThenDate = (a, b) =>
+const byOrderThenDate = (
+  a: CollectionEntry<"writing">,
+  b: CollectionEntry<"writing">,
+) =>
   a.data.order - b.data.order ||
   (b.data.date ?? "").localeCompare(a.data.date ?? "");
 const published = all
