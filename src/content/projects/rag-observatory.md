@@ -1,7 +1,7 @@
 ---
 title: rag-observatory
 summary: Research prototype for trace-based RAG observability and failure analysis.
-order: 2
+order: 3
 featured: true
 academic: true
 status: maintained

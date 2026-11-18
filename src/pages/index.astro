@@ -7,7 +7,7 @@ const featured = (await getCollection("projects"))
   .filter((p) => p.data.featured)
   .sort((a, b) => a.data.order - b.data.order);
 const anchor =
-  featured.find((project) => entrySlug(project) === "rag-observatory") ??
+  featured.find((project) => entrySlug(project) === "q-learning-exploitability") ??
   featured[0];
 
 const writing = (await getCollection("writing"))
