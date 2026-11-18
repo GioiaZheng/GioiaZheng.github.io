@@ -13,7 +13,7 @@ technical site. Static, content-first, no analytics, no trackers.
 
 ## Quickstart
 
-Requires Node `>=22.12.0` (pinned to `22.14.0` in `.nvmrc`).
+Requires Node `>=22.23.4` (pinned to `22.23.4` in `.nvmrc`).
 
 ```sh
 git clone https://github.com/GioiaZheng/GioiaZheng.github.io.git
