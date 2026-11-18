@@ -22,6 +22,7 @@ cd GioiaZheng.github.io
 npm install
 npm run dev      # local server on http://localhost:4321
 npm run build    # production build into ./dist
+npm run check:links # validate links in the built site without network access
 npm run preview  # serve ./dist locally
 ```
 
@@ -72,6 +73,11 @@ public/
 Push to `main`. The workflow in
 [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) builds the
 site and publishes the `dist/` artifact to Pages.
+
+Before upload, CI runs Astro's type/content checks and a post-build link
+integrity check. Internal pages, assets, and anchors must resolve. External
+project URLs keep their schema validation, but transient network responses do
+not block deployment.
 
 Repository setting required once: **Settings → Pages → Source → GitHub Actions**.
 
