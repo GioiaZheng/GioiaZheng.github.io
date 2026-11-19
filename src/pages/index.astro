@@ -17,8 +17,8 @@ const recent = writing[0];
 ---
 
 <Base
-  title="Gioia Zheng — information retrieval and RAG evaluation"
-  description="M.Sc. Computer Science student at TU Darmstadt working on information retrieval, RAG/LLM evaluation, and reproducible ML systems."
+  title="Gioia Zheng — evaluation of retrieval and learning systems"
+  description="M.Sc. Computer Science student at TU Darmstadt working on information retrieval, agent evaluation, and reproducible ML systems."
   width="wide"
 >
   <section class="hero">
@@ -31,17 +31,17 @@ const recent = writing[0];
           width="1024"
           height="1024"
         />
-        <p class="hero-eyebrow">Information retrieval · RAG evaluation · reproducible ML</p>
+        <p class="hero-eyebrow">Retrieval and learning-system evaluation · reproducible ML</p>
       </div>
       <h1>Gioia Zheng</h1>
       <p class="hero-tagline">
-        Retrieval Diagnostics &middot; RAG Evaluation &middot; Failure Analysis &middot; Reproducible ML
+        Retrieval Diagnostics &middot; Agent Evaluation &middot; Failure Analysis &middot; Reproducible ML
       </p>
       <p class="hero-positioning">
-        I study where retrieval-augmented generation fails, how retrieval and
-        generation errors interact, and how evaluation can make those failures
-        measurable. I build reproducible systems to turn these questions into
-        testable evidence.
+        I study how retrieval and learning systems fail under controlled or
+        exact evaluation, and how reproducible artifacts can make those failures
+        inspectable. My current work spans retrieval diagnostics, RAG evaluation,
+        and exact evaluation of learned policies.
       </p>
       <div class="hero-actions">
         {
@@ -62,26 +62,26 @@ const recent = writing[0];
       <div class="focus-item">
         <div class="focus-item-head">Questions</div>
         <div class="focus-item-body">
-          When does better retrieval improve grounded generation, and when do
-          aggregate metrics hide important failure modes?
+          When do apparently better retrieval results or learned policies still
+          fail under stricter evaluation, and which mechanism explains the gap?
         </div>
       </div>
 
       <div class="focus-item">
         <div class="focus-item-head">Methods</div>
         <div class="focus-item-body">
-          BM25, dense retrieval, FAISS, cross-encoder reranking, T5 generation,
-          controlled ablations, paired bootstrap, grounding evaluation, and
-          reproducibility manifests.
+          Retrieval and reranking, paired bootstrap, controlled ablations,
+          exact best response, symmetry-aware representations, and reproducibility
+          manifests.
         </div>
       </div>
 
       <div class="focus-item">
         <div class="focus-item-head">Current evidence</div>
         <div class="focus-item-body">
-          Paired generation comparisons on MS MARCO and retrieval-only audits
-          on TREC-DL, SciFact, and NFCorpus, with candidate-pool and evaluator
-          limitations stated explicitly.
+          Paired generation comparisons on MS MARCO, retrieval-only audits on
+          TREC-DL, SciFact, and NFCorpus, and exact exploitability checks for
+          frozen self-play policies.
         </div>
       </div>
     </aside>
@@ -89,7 +89,7 @@ const recent = writing[0];
     <ul class="hero-spec" aria-label="At a glance">
       <li><span class="hero-spec-k">LOC</span> Darmstadt, DE</li>
       <li><span class="hero-spec-k">EDU</span> M.Sc. CS · TU Darmstadt</li>
-      <li><span class="hero-spec-k">DOMAIN</span> IR · RAG evaluation · reproducible ML</li>
+      <li><span class="hero-spec-k">DOMAIN</span> IR · agent evaluation · reproducible ML</li>
       <li><span class="hero-spec-k">CODE</span> open source</li>
     </ul>
   </section>
@@ -119,16 +119,16 @@ const recent = writing[0];
 
           <div class="card-metrics" aria-label="Headline numbers">
             <div class="card-metric-row">
-              <span class="card-metric-label">Real traces</span>
-              <span class="card-metric-value">40 SciFact</span>
+              <span class="card-metric-label">Baseline policies</span>
+              <span class="card-metric-value">6/6 exploitable</span>
             </div>
             <div class="card-metric-row">
-              <span class="card-metric-label">Controlled queries</span>
-              <span class="card-metric-value">20 fixed</span>
+              <span class="card-metric-label">Controlled final</span>
+              <span class="card-metric-value">0/6 exploitable</span>
             </div>
             <div class="card-metric-row">
               <span class="card-metric-label">Automated tests</span>
-              <span class="card-metric-value">107</span>
+              <span class="card-metric-value">24</span>
             </div>
           </div>
 
@@ -144,7 +144,7 @@ const recent = writing[0];
 
   <section class="section" aria-labelledby="accepted-report-title">
     <h2 id="accepted-report-title">Accepted technical report</h2>
-    <p><strong>Gioia Zheng.</strong> <a href="https://openreview.net/forum?id=unVHJGkE8n">Fixed Shrinkage for Predictive AI Evaluation with Few Observed Labels</a>. PAIEC 2026, accepted November 2026.</p>
+    <p><strong>Gioia Zheng.</strong> <a href="https://openreview.net/forum?id=unVHJGkE8n">Fixed Shrinkage for Predictive AI Evaluation with Few Observed Labels</a>. PAIEC 2026, accepted and selected for poster presentation in November 2026.</p>
     <a href="/projects/paiec-2026/">Report, code and evidence</a>
   </section>
 
