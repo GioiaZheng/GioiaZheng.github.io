@@ -1,5 +1,5 @@
 ---
-title: msmarco-genqa
+title: MS MARCO Generative QA
 summary: Reproducible retrieve → rerank → generate pipeline on MS MARCO with paired-bootstrap evaluation and a manifest-enforced reproducibility contract.
 order: 1
 featured: true
